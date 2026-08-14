@@ -1,20 +1,31 @@
-from .schema import Mechanism
+"""Constrained mechanism registry and candidate generation."""
 
-MECHANISM_ONTOLOGY = [
-    Mechanism("AIRCRAFT_ROTATION","flight_delay","AIRCRAFT_ROTATION",
-              "next_flight_delay","positive",
-              "Delay propagates through an aircraft's next rotation."),
-    Mechanism("AIRPORT_CAPACITY","airport_capacity","CAPACITY_CONSTRAINT",
-              "flight_delay","positive",
-              "Reduced airport capacity increases delay."),
-    Mechanism("RESOURCE_DEPENDENCY","resource_state","RESOURCE_DEPENDENCY",
-              "flight_delay","positive",
-              "Shared operational resource constraints increase delay."),
-]
+from .graph import AviationGraph, GraphSnapshot
+from .schema import CounterfactualIntervention, Mechanism, MechanismEvidence
 
-def generate_candidates(local_context, top_k=3):
-    candidates = []
-    if local_context.get("has_aircraft_rotation"):
-        candidates.append(MECHANISM_ONTOLOGY[0])
-    candidates.extend([MECHANISM_ONTOLOGY[1], MECHANISM_ONTOLOGY[2]])
-    return candidates[:top_k]
+
+MECHANISM_REGISTRY = (
+    Mechanism("AIRCRAFT_ROTATION", "flight", "AIRCRAFT_ROTATION", "flight",
+              CounterfactualIntervention("disable_aircraft_rotation", "Break a scheduled rotation dependency", 1.0),
+              "Delay propagates from one leg to the next leg of an aircraft rotation."),
+    Mechanism("AIRPORT_CAPACITY", "airport", "DEPARTS_FROM", "flight",
+              CounterfactualIntervention("increase_capacity", "Temporarily increase airport processing capacity", 1.5),
+              "Airport congestion contributes to flight-delay accumulation."),
+    Mechanism("RESOURCE_DEPENDENCY", "resource", "RESOURCE_DEPENDENCY", "flight",
+              CounterfactualIntervention("relieve_resource_dependency", "Relieve a represented shared operational resource", 2.0),
+              "A represented shared operational resource propagates disruption."),
+)
+
+
+def generate_candidates(snapshot: GraphSnapshot, affected_flights: tuple[str, ...]) -> tuple[MechanismEvidence, ...]:
+    """Use local graph semantics to avoid unconstrained latent-cause proposals."""
+    relations = AviationGraph.relation_types(snapshot, affected_flights)
+    allowed = []
+    for mechanism in MECHANISM_REGISTRY:
+        if mechanism.relation_type in relations:
+            allowed.append(MechanismEvidence(mechanism.identifier))
+    return tuple(allowed)
+
+
+def mechanism_by_id(identifier: str) -> Mechanism:
+    return next(mechanism for mechanism in MECHANISM_REGISTRY if mechanism.identifier == identifier)

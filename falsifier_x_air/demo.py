@@ -1,63 +1,53 @@
+"""Concise synthetic demonstration of the complete research loop."""
+
 import numpy as np
+
+from .falsifier import FalsifierXAir, InvestigationContext
+from .graph import AviationGraph
+from .predictor import BaselinePredictor
+from .recovery import choose_recovery, evaluate_selected_action
 from .schema import Flight
-from .twin import AviationDigitalTwin
-from .predictor import BaselinePredictor, CrossModelAgreement
-from .falsifier import FalsifierXAir
-from .recovery import compare_recovery
+from .twin import AviationDigitalTwin, TwinScenario
 
-def make_flights():
-    return [
-        Flight("F1","A","B","AC1",0), Flight("F2","B","C","AC1",1),
-        Flight("F3","C","D","AC1",2), Flight("F4","A","C","AC2",0),
-        Flight("F5","C","D","AC2",1), Flight("F6","D","A","AC2",2),
-    ]
 
-def main():
+def make_flights() -> tuple[Flight, ...]:
+    return (
+        Flight("F1", "A", "B", "AC1", 0), Flight("F2", "B", "C", "AC1", 1), Flight("F3", "C", "D", "AC1", 2),
+        Flight("F4", "A", "C", "AC2", 0), Flight("F5", "C", "D", "AC2", 1), Flight("F6", "D", "A", "AC2", 2),
+    )
+
+
+def main() -> None:
     rng = np.random.default_rng(7)
-    n = 400
-    weather = rng.uniform(0,1,n)
-    capacity = rng.uniform(.6,1,n)
-    X = np.column_stack([weather, capacity])
-    y = 8*weather + 12*(1-capacity) + rng.normal(0,1.5,n)
+    features = np.column_stack([rng.uniform(0, 1, 400), rng.uniform(0.6, 1, 400)])
+    targets = 8 * features[:, 0] + 12 * (1 - features[:, 1]) + rng.normal(0, 1.5, 400)
+    predictor = BaselinePredictor().fit(features, targets)
+    alternative = BaselinePredictor(alpha=5.0).fit(features, targets)
+    scenario = TwinScenario("demo", weather=0.9, capacity=0.7, seed=21)
+    twin = AviationDigitalTwin(make_flights(), hidden_mechanisms={"AIRCRAFT_ROTATION"}, seed=21)
+    observation = twin.observe(scenario)
+    graph = AviationGraph.build(observation.flights)
+    x_observation = np.tile([scenario.weather, scenario.capacity], (len(graph.flight_ids), 1))
+    prediction = predictor.predict_with_uncertainty(x_observation)
+    context = InvestigationContext(observation, graph, prediction,
+                                   alternative.predict_with_uncertainty(x_observation).mean,
+                                   float(np.mean(predictor.feature_distance(x_observation))), 3, scenario)
+    result = FalsifierXAir().investigate(twin, context)
+    print("\n=== FALSIFIER-X AIR v0.1 research foundation ===")
+    print(f"Adequacy: {result.adequacy.state} (evidence={result.adequacy.evidence_score:.2f})")
+    print("Affected flights:", ", ".join(result.affected_flights) or "none")
+    print("Candidates:", ", ".join(item.mechanism_id for item in result.candidates) or "none")
+    for experiment in result.experiment_results:
+        print(f"Experiment {experiment.experiment_id}: {experiment.intervention.identifier}, effect={experiment.effect:.1f}")
+    print("Recovered mechanism:", result.recovered_mechanism or "inconclusive")
+    predicted_total = float(prediction.mean.sum())
+    unrepaired = choose_recovery(predicted_total, None)
+    repaired = choose_recovery(predicted_total, result.recovered_mechanism)
+    print(f"Recovery choice (unrepaired): {unrepaired.action.identifier}")
+    print(f"Recovery choice (repaired): {repaired.action.identifier}")
+    print(f"Environment outcome (unrepaired choice): {evaluate_selected_action(twin, scenario, unrepaired).realized_total_delay:.1f}")
+    print(f"Environment outcome (repaired choice): {evaluate_selected_action(twin, scenario, repaired).realized_total_delay:.1f}")
 
-    predictor = BaselinePredictor().fit(X,y)
-    cross = CrossModelAgreement().fit(X,y)
-
-    flights = make_flights()
-    twin = AviationDigitalTwin(
-        flights, hidden_mechanisms={"AIRCRAFT_ROTATION"}, seed=21
-    )
-    state = twin.run(weather=1.0, capacity=.7)
-    obs = np.array(list(state.delays.values()))
-    Xobs = np.tile([1.0,.7], (len(obs),1))
-    pred = predictor.predict(Xobs)
-    cross_pred = cross.predict(Xobs)
-
-    system = FalsifierXAir()
-    result = system.investigate(
-        twin=twin, y_true=obs, prediction=pred,
-        ood_score=float(np.mean(predictor.feature_distance(Xobs))),
-        persistence_count=3, graph_concentration=.95,
-        cross_model_gap=float(np.mean(np.abs(pred.mean-cross_pred))/20),
-        local_context={"has_aircraft_rotation": True}
-    )
-
-    print("\n=== FALSIFIER-X AIR v0.1 ===")
-    print("State:", result.adequacy.state)
-    print("MIS:", round(result.adequacy.mis_score,3))
-    print("Reason:", result.adequacy.reason)
-
-    for name, r in result.experiment_results.items():
-        print(f"{name:24s} | {r['intervention']:30s} | effect={r['effect']:.1f}")
-
-    print("Selected mechanism:", result.selected_mechanism)
-    print("Selected experiment:", result.selected_experiment)
-
-    recovery = compare_recovery(twin)
-    print("\nRecovery:")
-    for name, r in recovery["actions"].items():
-        print(f"{name:30s} delay={r['total_delay']:.1f} improvement={r['improvement']:.1f}")
-    print("Best action:", recovery["best_action"])
 
 if __name__ == "__main__":
     main()
