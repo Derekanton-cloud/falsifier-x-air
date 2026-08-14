@@ -32,7 +32,7 @@ class ActiveExperimentSelector:
             if mechanism.intervention.identifier != intervention_id:
                 effects.append(0.0)
                 continue
-            if mechanism.identifier == "AIRCRAFT_ROTATION":
+            if mechanism.identifier in {"AIRCRAFT_ROTATION", "RESOURCE_DEPENDENCY"}:
                 concentration = AviationGraph.residual_concentration(snapshot, residual)
                 effects.append(total * concentration)
             else:
@@ -76,6 +76,8 @@ def update_evidence(candidates: tuple[MechanismEvidence, ...], expected: np.ndar
         error = abs(result.effect - expected_effect) / scale
         item.expected_effects.append(float(expected_effect))
         item.observed_effects.append(result.effect)
+        item.experiment_interventions.append(result.intervention.identifier)
+        item.baseline_delays.append(result.baseline_delay)
         item.observations += 1
         item.log_evidence -= error / config.evidence_tolerance
         if item.log_evidence <= config.rejection_log_evidence:

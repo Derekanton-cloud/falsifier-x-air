@@ -13,17 +13,19 @@ aviation control system.
 
 `python -m falsifier_x_air.demo` demonstrates this closed loop:
 
-1. Build an observable flight/airport/rotation graph.
+1. Build an observable flight/airport/rotation/shared-resource graph.
 2. Produce tabular baseline predictions and residual intervals.
 3. Assess OOD, persistence, interval violations, residual agreement and graph concentration.
 4. Localise high-residual flights and generate only graph-semantic candidates.
 5. Select and run one informative counterfactual at a time in a synthetic twin.
 6. Update approximate evidence, reject inconsistent candidates, and propose a repair.
-7. Choose recovery from model estimates; only then evaluate that choice in the twin.
+7. Choose recovery from measured counterfactual evidence; only then evaluate that choice in the twin.
 
-The twin keeps hidden active mechanisms private. The learner only receives
-observations and counterfactual outcomes. Experiments are paired by scenario seed
-so an intervention is compared with the same synthetic exogenous noise.
+The twin keeps hidden active mechanisms private. Shared-resource assignments are
+observable operational inputs: the graph represents flights using a resource and
+the corresponding flight-to-flight dependency. The hidden twin mechanism may or
+may not activate that observable dependency. Experiments are paired by scenario
+seed so an intervention is compared with the same synthetic exogenous noise.
 
 ## Deliberate limitations
 

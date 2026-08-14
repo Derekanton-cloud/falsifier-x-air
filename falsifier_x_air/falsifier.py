@@ -52,9 +52,20 @@ class FalsifierXAir:
         results: list[ExperimentResult] = []
         for index in range(self.experiment_config.maximum_experiments):
             plausible = tuple(item for item in candidates if item.status != item.status.REJECTED)
-            if len(plausible) <= 1:
+            if not plausible:
                 break
-            intervention = self.selector.select(plausible, context.graph, context.observation, context.prediction.mean, tried)
+            if len(plausible) == 1:
+                survivor = plausible[0]
+                survivor_intervention = self.selector.select(
+                    plausible, context.graph, context.observation, context.prediction.mean, tried,
+                )
+                if survivor_intervention is None:
+                    break
+                # A single survivor is a provisional hypothesis: confirm it with
+                # its own intervention before declaring a recovered mechanism.
+                intervention = survivor_intervention
+            else:
+                intervention = self.selector.select(plausible, context.graph, context.observation, context.prediction.mean, tried)
             if intervention is None:
                 break
             expected = self.selector.predicted_effects(candidates, context.graph, context.observation, context.prediction.mean, intervention)
