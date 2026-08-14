@@ -17,9 +17,12 @@ Falsifications* (ICML 2025). Neither is copied by this implementation.
 ## Current architecture
 
 `schema.py` defines typed, mostly immutable contracts. `graph.py` constructs an
-observable multi-relational graph with flight, airport, scheduled rotation, and
-airport-association semantics. A scheduled edge is an available operational
-dependency, not proof that it is causally active.
+observable multi-relational graph with flight, airport, scheduled rotation,
+airport-association, and shared-resource semantics. A flight's optional
+observable `resource_id` creates a flight-to-resource `USES_RESOURCE` edge and a
+time-ordered `RESOURCE_DEPENDENCY` edge between flights sharing it. These edges
+express operational opportunity for propagation, not proof that the hidden twin
+mechanism is active.
 
 `predictor.py` provides the replaceable `DelayPredictor` boundary. The current
 Ridge baseline deliberately excludes graph inputs and uses training-residual
@@ -36,14 +39,18 @@ intervention with maximum cost-normalised predicted outcome disagreement, runs
 only that intervention, then updates likelihood-shaped evidence. This is an
 explicit non-Bayesian expected-information approximation.
 
-`twin.py` is a synthetic environment. Hidden active mechanisms are private; the
-learner can call only `observe` and `counterfactual`. Paired seeds hold exogenous
-noise fixed for an intervention. The evaluator may vary scenario seeds and use
-`held_out_scenarios`; no learner path reads hidden mechanism state.
+`twin.py` is a synthetic environment. Its resource mechanism uses the same
+observable shared-resource assignment as the graph, while keeping whether that
+mechanism is active private. The learner can call only `observe` and
+`counterfactual`. Paired seeds hold exogenous noise fixed for an intervention.
+The evaluator may vary scenario seeds and use `held_out_scenarios`; no learner
+path reads hidden mechanism state.
 
-`recovery.py` chooses an action from predicted delay and recovered structure
-without accepting a twin. `evaluate_selected_action` is intentionally a separate,
-post-decision environment evaluation.
+`recovery.py` chooses an action from predicted delay, recovered structure, and
+the median measured paired effect of that mechanism's matching experiments. It
+does not assume a fixed benefit and does not accept a twin.
+`evaluate_selected_action` is intentionally a separate, post-decision
+environment evaluation.
 
 ## What remains future work
 

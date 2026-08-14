@@ -47,9 +47,13 @@ class AviationDigitalTwin:
             congestion = 6.0 * max(0.0, 1.0 - scenario.capacity)
             delays = {key: value + congestion for key, value in delays.items()}
         if "RESOURCE_DEPENDENCY" in self._hidden_mechanisms and not interventions.get("relieve_resource_dependency", False):
-            for flight in self.flights:
-                if flight.scheduled_time > min(item.scheduled_time for item in self.flights):
-                    delays[flight.flight_id] += 3.0
+            by_resource: dict[str, list[Flight]] = {}
+            for flight in sorted(self.flights, key=lambda item: (item.resource_id or "", item.scheduled_time)):
+                if flight.resource_id is not None:
+                    by_resource.setdefault(flight.resource_id, []).append(flight)
+            for sequence in by_resource.values():
+                for previous, following in zip(sequence, sequence[1:]):
+                    delays[following.flight_id] += 0.6 * delays[previous.flight_id]
         return NetworkObservation(self.flights, delays, scenario.weather, scenario.capacity, scenario.scenario_id)
 
     def counterfactual(self, scenario: TwinScenario, intervention_id: str) -> NetworkObservation:

@@ -23,6 +23,7 @@ class Flight:
     destination: str
     aircraft_id: str
     scheduled_time: int
+    resource_id: str | None = None
 
 
 @dataclass(frozen=True)
@@ -71,6 +72,8 @@ class MechanismEvidence:
     observations: int = 0
     expected_effects: list[float] = field(default_factory=list)
     observed_effects: list[float] = field(default_factory=list)
+    experiment_interventions: list[str] = field(default_factory=list)
+    baseline_delays: list[float] = field(default_factory=list)
 
 
 @dataclass(frozen=True)

@@ -1,6 +1,7 @@
 import inspect
 
 import numpy as np
+import pytest
 
 from falsifier_x_air.adequacy import StructuralAdequacyDetector
 from falsifier_x_air.experiments import ActiveExperimentSelector
@@ -9,7 +10,7 @@ from falsifier_x_air.graph import AviationGraph
 from falsifier_x_air.mechanisms import generate_candidates
 from falsifier_x_air.predictor import BaselinePredictor
 from falsifier_x_air.recovery import choose_recovery, evaluate_selected_action
-from falsifier_x_air.schema import Flight, PredictionOutput
+from falsifier_x_air.schema import Flight, MechanismEvidence, PredictionOutput
 from falsifier_x_air.twin import AviationDigitalTwin, TwinScenario
 
 
@@ -75,7 +76,46 @@ def test_twin_hidden_ground_truth_is_not_learner_api():
 def test_recovery_decision_is_model_based_then_evaluated():
     twin = AviationDigitalTwin(flights(), {"AIRCRAFT_ROTATION"})
     scenario = TwinScenario("test", 0.9, 0.7, 1)
-    decision = choose_recovery(100.0, "AIRCRAFT_ROTATION")
+    evidence = MechanismEvidence("AIRCRAFT_ROTATION", observed_effects=[40.0], baseline_delays=[100.0],
+                                 experiment_interventions=["disable_aircraft_rotation"])
+    decision = choose_recovery(100.0, "AIRCRAFT_ROTATION", evidence)
     assert decision.action.identifier == "DISABLE_AIRCRAFT_ROTATION"
     evaluated = evaluate_selected_action(twin, scenario, decision)
     assert evaluated.realized_total_delay is not None
+
+
+def test_resource_dependency_candidate_requires_observable_shared_resource_relation():
+    resource_flights = (
+        Flight("F1", "A", "B", "AC1", 0, "GATE-1"),
+        Flight("F2", "B", "C", "AC2", 1, "GATE-1"),
+    )
+    snapshot = AviationGraph.build(resource_flights)
+    candidates = generate_candidates(snapshot, snapshot.flight_ids)
+    assert "RESOURCE_DEPENDENCY" in {candidate.mechanism_id for candidate in candidates}
+
+    no_resource_snapshot = AviationGraph.build(tuple(Flight(flight.flight_id, flight.origin, flight.destination,
+                                                    flight.aircraft_id, flight.scheduled_time) for flight in resource_flights))
+    assert "RESOURCE_DEPENDENCY" not in {candidate.mechanism_id for candidate in generate_candidates(no_resource_snapshot, no_resource_snapshot.flight_ids)}
+
+
+def test_resource_dependency_is_sequentially_investigated_and_recovered():
+    resource_flights = (
+        Flight("F1", "A", "B", "AC1", 0, "CREW-1"),
+        Flight("F2", "B", "C", "AC2", 1, "CREW-1"),
+    )
+    snapshot = AviationGraph.build(resource_flights)
+    scenario = TwinScenario("resource", 0.9, 0.7, 1)
+    twin = AviationDigitalTwin(resource_flights, {"RESOURCE_DEPENDENCY"})
+    observation = twin.observe(scenario)
+    prediction = PredictionOutput(np.zeros(2), np.ones(2), np.ones(2), np.ones(2))
+    result = FalsifierXAir().investigate(twin, InvestigationContext(observation, snapshot, prediction, np.zeros(2), 0.0, 3, scenario))
+    assert any(experiment.intervention.identifier == "relieve_resource_dependency" for experiment in result.experiment_results)
+    assert result.recovered_mechanism == "RESOURCE_DEPENDENCY"
+
+
+def test_recovery_uses_measured_effect_not_default_assumption():
+    evidence = MechanismEvidence("RESOURCE_DEPENDENCY", observed_effects=[72.0], baseline_delays=[100.0],
+                                 experiment_interventions=["relieve_resource_dependency"])
+    decision = choose_recovery(100.0, "RESOURCE_DEPENDENCY", evidence)
+    assert decision.action.estimated_effect_fraction == 0.72
+    assert decision.estimated_total_delay == pytest.approx(28.0)
