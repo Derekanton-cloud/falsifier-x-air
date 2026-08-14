@@ -1,53 +1,54 @@
-from dataclasses import dataclass
+"""Predictor interfaces; the included Ridge model is deliberately non-graph."""
+
+from typing import Protocol
+
 import numpy as np
-from sklearn.ensemble import RandomForestRegressor
 from sklearn.linear_model import Ridge
 from sklearn.preprocessing import StandardScaler
 
-@dataclass
-class Prediction:
-    mean: np.ndarray
-    lower: np.ndarray
-    upper: np.ndarray
+from .schema import PredictionOutput
+
+
+class DelayPredictor(Protocol):
+    def fit(self, features: np.ndarray, targets: np.ndarray) -> "DelayPredictor": ...
+    def predict_with_uncertainty(self, features: np.ndarray) -> PredictionOutput: ...
+    def feature_distance(self, features: np.ndarray) -> np.ndarray: ...
+
 
 class BaselinePredictor:
-    # v0.1 baseline. It intentionally excludes aircraft rotation.
-    def __init__(self):
-        self.model = Ridge(alpha=1.0)
+    """Replaceable Ridge baseline with split-conformal-style residual intervals.
+
+    It intentionally consumes tabular weather/capacity features only. A future graph
+    predictor implements ``DelayPredictor`` without changing investigation logic.
+    """
+
+    def __init__(self, alpha: float = 1.0, interval_quantile: float = 0.95) -> None:
+        self.model = Ridge(alpha=alpha)
         self.scaler = StandardScaler()
-        self.residual_q = None
-        self.train_mean = None
-        self.train_std = None
+        self.interval_quantile = interval_quantile
+        self.residual_quantile: float | None = None
+        self.train_mean: np.ndarray | None = None
+        self.train_std: np.ndarray | None = None
 
-    def fit(self, X, y):
-        Xs = self.scaler.fit_transform(X)
-        self.model.fit(Xs, y)
-        pred = self.model.predict(Xs)
-        self.residual_q = float(np.quantile(np.abs(y - pred), 0.95))
-        self.train_mean = Xs.mean(axis=0)
-        self.train_std = Xs.std(axis=0) + 1e-6
+    def fit(self, features: np.ndarray, targets: np.ndarray) -> "BaselinePredictor":
+        scaled = self.scaler.fit_transform(features)
+        self.model.fit(scaled, targets)
+        self.residual_quantile = float(np.quantile(np.abs(targets - self.model.predict(scaled)), self.interval_quantile))
+        self.train_mean = scaled.mean(axis=0)
+        self.train_std = scaled.std(axis=0) + 1e-6
         return self
 
-    def predict(self, X):
-        Xs = self.scaler.transform(X)
-        mean = self.model.predict(Xs)
-        q = self.residual_q or 10.0
-        return Prediction(mean, mean-q, mean+q)
+    def predict_with_uncertainty(self, features: np.ndarray) -> PredictionOutput:
+        scaled = self.scaler.transform(features)
+        mean = self.model.predict(scaled)
+        radius = self.residual_quantile if self.residual_quantile is not None else 10.0
+        return PredictionOutput(mean, mean - radius, mean + radius, np.full(len(mean), radius / 1.96))
 
-    def feature_distance(self, X):
-        Xs = self.scaler.transform(X)
-        z = (Xs-self.train_mean)/self.train_std
-        return np.sqrt((z*z).mean(axis=1))
+    def predict(self, features: np.ndarray) -> PredictionOutput:
+        return self.predict_with_uncertainty(features)
 
-class CrossModelAgreement:
-    def __init__(self):
-        self.model = RandomForestRegressor(
-            n_estimators=80, max_depth=6, random_state=7
-        )
-
-    def fit(self, X, y):
-        self.model.fit(X, y)
-        return self
-
-    def predict(self, X):
-        return self.model.predict(X)
+    def feature_distance(self, features: np.ndarray) -> np.ndarray:
+        if self.train_mean is None or self.train_std is None:
+            raise RuntimeError("fit must be called before feature_distance")
+        scaled = self.scaler.transform(features)
+        return np.sqrt(np.mean(((scaled - self.train_mean) / self.train_std) ** 2, axis=1))

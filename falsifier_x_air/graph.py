@@ -1,26 +1,69 @@
-import networkx as nx
-from dataclasses import dataclass
+"""Construction and residual analysis for the observable aviation graph."""
 
-@dataclass
-class AviationGraph:
+from dataclasses import dataclass
+from typing import Iterable
+
+import networkx as nx
+import numpy as np
+
+from .schema import Flight
+
+
+@dataclass(frozen=True)
+class GraphSnapshot:
     graph: nx.MultiDiGraph
+    flight_ids: tuple[str, ...]
+
+
+class AviationGraph:
+    """Semantic graph of scheduled operational dependencies, not hidden causality."""
 
     @classmethod
-    def build(cls, flights, include_hidden_mechanism=False):
-        g = nx.MultiDiGraph()
-        for f in flights:
-            g.add_node(f.flight_id, type="flight",
-                       origin=f.origin, destination=f.destination,
-                       aircraft_id=f.aircraft_id)
-        by_aircraft = {}
-        for f in sorted(flights, key=lambda x: x.scheduled_time):
-            by_aircraft.setdefault(f.aircraft_id, []).append(f)
-        if include_hidden_mechanism:
-            for seq in by_aircraft.values():
-                for a, b in zip(seq, seq[1:]):
-                    g.add_edge(a.flight_id, b.flight_id,
-                               relation="AIRCRAFT_ROTATION")
-        return cls(g)
+    def build(cls, flights: Iterable[Flight]) -> GraphSnapshot:
+        flights = tuple(flights)
+        graph = nx.MultiDiGraph()
+        for flight in flights:
+            graph.add_node(flight.flight_id, node_type="flight", aircraft_id=flight.aircraft_id)
+            for airport, relation in ((flight.origin, "DEPARTS_FROM"), (flight.destination, "ARRIVES_AT")):
+                graph.add_node(airport, node_type="airport")
+                graph.add_edge(flight.flight_id, airport, relation=relation)
 
-    def local_subgraph(self, flight_ids):
-        return self.graph.subgraph(flight_ids).copy()
+        by_aircraft: dict[str, list[Flight]] = {}
+        for flight in sorted(flights, key=lambda item: (item.aircraft_id, item.scheduled_time)):
+            by_aircraft.setdefault(flight.aircraft_id, []).append(flight)
+        for sequence in by_aircraft.values():
+            for previous, following in zip(sequence, sequence[1:]):
+                graph.add_edge(previous.flight_id, following.flight_id, relation="AIRCRAFT_ROTATION")
+        return GraphSnapshot(graph=graph, flight_ids=tuple(f.flight_id for f in flights))
+
+    @staticmethod
+    def localize(snapshot: GraphSnapshot, residuals: np.ndarray, quantile: float = 0.75) -> tuple[str, ...]:
+        """Return high-residual flights plus their one-hop flight neighbours."""
+        threshold = float(np.quantile(np.abs(residuals), quantile))
+        seeds = [flight_id for flight_id, residual in zip(snapshot.flight_ids, residuals) if abs(residual) >= threshold]
+        selected = set(seeds)
+        for flight_id in seeds:
+            selected.update(node for node in snapshot.graph.successors(flight_id) if snapshot.graph.nodes[node].get("node_type") == "flight")
+            selected.update(node for node in snapshot.graph.predecessors(flight_id) if snapshot.graph.nodes[node].get("node_type") == "flight")
+        return tuple(sorted(selected))
+
+    @staticmethod
+    def residual_concentration(snapshot: GraphSnapshot, residuals: np.ndarray) -> float:
+        """Fraction of absolute residual mass on rotation-connected flight pairs."""
+        values = dict(zip(snapshot.flight_ids, np.abs(residuals)))
+        total = float(sum(values.values()))
+        if total == 0:
+            return 0.0
+        connected = 0.0
+        for source, target, data in snapshot.graph.edges(data=True):
+            if data.get("relation") == "AIRCRAFT_ROTATION":
+                connected += min(values.get(source, 0.0), values.get(target, 0.0))
+        return float(np.clip(connected / total, 0.0, 1.0))
+
+    @staticmethod
+    def relation_types(snapshot: GraphSnapshot, flight_ids: Iterable[str]) -> set[str]:
+        node_set = set(flight_ids)
+        return {
+            data["relation"] for source, target, data in snapshot.graph.edges(data=True)
+            if source in node_set or target in node_set
+        }

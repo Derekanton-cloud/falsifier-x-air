@@ -1,44 +1,69 @@
+"""Synthetic aviation environment with a strict observation/intervention boundary."""
+
 from dataclasses import dataclass
+from typing import Iterable, Mapping
+
 import numpy as np
 
-@dataclass
-class TwinState:
-    delays: dict
+from .schema import Flight, NetworkObservation
+
+
+@dataclass(frozen=True)
+class TwinScenario:
+    scenario_id: str
+    weather: float
+    capacity: float
+    seed: int
+
 
 class AviationDigitalTwin:
-    def __init__(self, flights, hidden_mechanisms=None, seed=7):
-        self.flights = flights
-        self.rng = np.random.default_rng(seed)
-        self.hidden_mechanisms = set(
-            hidden_mechanisms or {"AIRCRAFT_ROTATION"}
-        )
+    """Controlled generative environment. Hidden mechanisms are never exposed to learners.
 
-    def run(self, weather=0.0, capacity=1.0, interventions=None):
+    ``observe`` and ``counterfactual`` are the only interfaces needed by the
+    investigation system. Ground truth deliberately has no public accessor.
+    """
+
+    def __init__(self, flights: Iterable[Flight], hidden_mechanisms: Iterable[str] | None = None, seed: int = 7) -> None:
+        self.flights = tuple(flights)
+        self._hidden_mechanisms = frozenset(hidden_mechanisms or {"AIRCRAFT_ROTATION"})
+        self.seed = seed
+
+    def observe(self, scenario: TwinScenario, interventions: Mapping[str, bool] | None = None) -> NetworkObservation:
         interventions = interventions or {}
-        delays = {}
-        for f in self.flights:
-            noise = self.rng.normal(0, 1.5)
-            base = 8.0 * weather + 12.0 * max(0.0, 1.0 - capacity)
-            delays[f.flight_id] = max(0.0, base + noise)
+        rng = np.random.default_rng(scenario.seed)
+        base = 8.0 * scenario.weather + 12.0 * max(0.0, 1.0 - scenario.capacity)
+        delays = {flight.flight_id: max(0.0, base + rng.normal(0.0, 1.5)) for flight in self.flights}
 
-        if "AIRCRAFT_ROTATION" in self.hidden_mechanisms:
-            if not interventions.get("disable_aircraft_rotation", False):
-                by_aircraft = {}
-                for f in sorted(self.flights, key=lambda x: x.scheduled_time):
-                    by_aircraft.setdefault(f.aircraft_id, []).append(f)
-                for seq in by_aircraft.values():
-                    for prev, nxt in zip(seq, seq[1:]):
-                        delays[nxt.flight_id] += 0.85 * delays[prev.flight_id]
+        if "AIRCRAFT_ROTATION" in self._hidden_mechanisms and not interventions.get("disable_aircraft_rotation", False):
+            by_aircraft: dict[str, list[Flight]] = {}
+            for flight in sorted(self.flights, key=lambda item: (item.aircraft_id, item.scheduled_time)):
+                by_aircraft.setdefault(flight.aircraft_id, []).append(flight)
+            for sequence in by_aircraft.values():
+                for previous, following in zip(sequence, sequence[1:]):
+                    delays[following.flight_id] += 0.85 * delays[previous.flight_id]
+        # These are latent generative components. Their parameters remain an
+        # environment implementation detail; observations expose delays only.
+        if "AIRPORT_CAPACITY" in self._hidden_mechanisms and not interventions.get("increase_capacity", False):
+            congestion = 6.0 * max(0.0, 1.0 - scenario.capacity)
+            delays = {key: value + congestion for key, value in delays.items()}
+        if "RESOURCE_DEPENDENCY" in self._hidden_mechanisms and not interventions.get("relieve_resource_dependency", False):
+            for flight in self.flights:
+                if flight.scheduled_time > min(item.scheduled_time for item in self.flights):
+                    delays[flight.flight_id] += 3.0
+        return NetworkObservation(self.flights, delays, scenario.weather, scenario.capacity, scenario.scenario_id)
 
-        if interventions.get("increase_capacity", False):
-            for k in delays:
-                delays[k] *= 0.65
+    def counterfactual(self, scenario: TwinScenario, intervention_id: str) -> NetworkObservation:
+        return self.observe(scenario, {intervention_id: True})
 
-        if interventions.get("disable_resource_dependency", False):
-            for k in delays:
-                delays[k] *= 0.97
+    # Compatibility helpers retained for the v0.1 API.
+    def run(self, weather: float = 0.0, capacity: float = 1.0, interventions: Mapping[str, bool] | None = None):
+        observation = self.observe(TwinScenario("legacy", weather, capacity, self.seed), interventions)
+        return type("TwinState", (), {"delays": observation.delays})()
 
-        return TwinState(delays)
-
-    def total_delay(self, **kwargs):
+    def total_delay(self, **kwargs: object) -> float:
         return float(sum(self.run(**kwargs).delays.values()))
+
+    def held_out_scenarios(self, count: int, seed: int) -> tuple[TwinScenario, ...]:
+        rng = np.random.default_rng(seed)
+        return tuple(TwinScenario(f"held-out-{index}", float(rng.uniform(0.2, 1.0)), float(rng.uniform(0.55, 0.95)),
+                                  int(rng.integers(0, 2**31 - 1))) for index in range(count))

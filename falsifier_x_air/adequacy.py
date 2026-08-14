@@ -1,52 +1,60 @@
+"""Evidence-based model-adequacy assessment (not a causal significance test)."""
+
 from dataclasses import dataclass
+
 import numpy as np
 
-@dataclass
-class AdequacyResult:
-    residual_score: float
-    uncertainty_violation: float
-    persistence_score: float
-    structural_score: float
-    cross_model_score: float
-    mis_score: float
-    state: str
-    reason: str
+from .schema import AdequacyEvaluation, PredictionOutput
+
+
+@dataclass(frozen=True)
+class AdequacyConfig:
+    persistence_required: int = 3
+    ood_threshold: float = 3.0
+    residual_z_threshold: float = 2.0
+    minimum_evidence_fraction: float = 0.6
+
 
 class StructuralAdequacyDetector:
-    def __init__(self, persistence_required=3, mis_threshold=0.65,
-                 ood_threshold=3.0):
-        self.persistence_required = persistence_required
-        self.mis_threshold = mis_threshold
-        self.ood_threshold = ood_threshold
+    """Combines explicit diagnostic gates into a transparent evidence score.
 
-    @staticmethod
-    def norm(x):
-        return float(np.clip(x, 0.0, 1.0))
+    Thresholds are configuration values to calibrate and freeze on validation data;
+    this score is only an adequacy signal, never a causal p-value.
+    """
 
-    def evaluate(self, y_true, prediction, ood_score,
-                 persistence_count, graph_concentration, cross_model_gap):
-        residual = np.abs(y_true-prediction.mean)
-        scale = np.maximum(np.abs(prediction.mean)+5.0, 5.0)
-        r = self.norm(np.mean(residual/scale))
-        outside = (y_true < prediction.lower) | (y_true > prediction.upper)
-        u = self.norm(np.mean(outside))
-        p = self.norm(persistence_count/max(self.persistence_required, 1))
-        s = self.norm(graph_concentration)
-        c = self.norm(cross_model_gap)
+    def __init__(self, config: AdequacyConfig | None = None) -> None:
+        self.config = config or AdequacyConfig()
 
-        mis = 0.25*r + 0.20*u + 0.20*p + 0.20*s + 0.15*c
-
-        if ood_score >= self.ood_threshold:
-            state, reason = "ADEQUATE", "OOD is a stronger alternative explanation."
-        elif persistence_count < self.persistence_required:
-            state, reason = "ADEQUATE", "Insufficient persistence."
-        elif u < 0.5:
-            state, reason = "ADEQUATE", "Behaviour remains inside uncertainty."
-        elif mis >= self.mis_threshold:
-            state, reason = "STRUCTURALLY_SUSPICIOUS", (
-                "Persistent structured deviation remains after uncertainty/OOD gates."
-            )
+    def evaluate(
+        self,
+        observed: np.ndarray,
+        prediction: PredictionOutput,
+        ood_score: float,
+        persistence_count: int,
+        structural_concentration: float,
+        alternative_prediction: np.ndarray,
+    ) -> AdequacyEvaluation:
+        residual = observed - prediction.mean
+        standardized = float(np.mean(np.abs(residual) / np.maximum(prediction.epistemic_std, 1e-6)))
+        miscoverage = float(np.mean((observed < prediction.lower) | (observed > prediction.upper)))
+        persistence = min(1.0, persistence_count / self.config.persistence_required)
+        residual_agreement = float(np.corrcoef(residual, observed - alternative_prediction)[0, 1]) if len(observed) > 1 else 0.0
+        if not np.isfinite(residual_agreement):
+            residual_agreement = 0.0
+        evidence = np.mean([
+            standardized >= self.config.residual_z_threshold,
+            miscoverage >= 0.5,
+            persistence >= 1.0,
+            structural_concentration >= 0.25,
+            residual_agreement >= 0.5,
+        ])
+        if ood_score >= self.config.ood_threshold:
+            state, reason = "ADEQUATE", "Distribution shift is a stronger explanation than missing structure."
+        elif persistence < 1.0:
+            state, reason = "ADEQUATE", "Residual pattern has not persisted long enough."
+        elif evidence >= self.config.minimum_evidence_fraction:
+            state, reason = "STRUCTURALLY_SUSPICIOUS", "Persistent, interval-violating residuals are graph-structured."
         else:
-            state, reason = "INVESTIGATE", "Evidence is unusual but not conclusive."
-
-        return AdequacyResult(r,u,p,s,c,mis,state,reason)
+            state, reason = "INVESTIGATE", "Residual evidence is unusual but does not clear all adequacy gates."
+        return AdequacyEvaluation(standardized, miscoverage, persistence, structural_concentration,
+                                  residual_agreement, ood_score, float(evidence), state, reason)
