@@ -1,0 +1,20 @@
+{
+  "study_period": "2024-01",
+  "airport_count_observed": 334,
+  "airport_count_matched": 334,
+  "coordinate_source": "BTS TranStats Master Coordinate",
+  "coordinate_source_file": "data\\metadata\\T_MASTER_CORD_20260814_042905.zip",
+  "coordinate_source_url": "https://www.transtats.bts.gov/tables.asp?QO_VQ=IMI&QO_anzr=N8vn6v10",
+  "timezone_source": "IANA tz database via timezonefinder",
+  "timezone_source_url": "https://www.iana.org/time-zones",
+  "timezonefinder_version": "8.2.5",
+  "selection_rules": [
+    "AirportStartDate <= 2024-01-15",
+    "AirportThruDate is null or >= 2024-01-15",
+    "AirportIsClosed == 0",
+    "prefer AirportIsLatest, then newest AirportStartDate, then greatest AirportSeqID"
+  ],
+  "unmatched_airports": [],
+  "timezone_failures": [],
+  "generated_at": "2026-08-14T08:34:07.881332+00:00"
+}

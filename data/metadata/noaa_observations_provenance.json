@@ -1,0 +1,836 @@
+{
+  "source": "https://www.ncei.noaa.gov/data/global-hourly/access",
+  "study_period": [
+    "2024-01-01",
+    "2024-01-31"
+  ],
+  "station_count": 165,
+  "files": [
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\70273026451_2024.csv",
+      "bytes": 8299928,
+      "sha256": "6a98b7dfcaa8c59dd6bbc04c54449931cb9695ff7efb0422739e96c07e5169ee"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72073573805_2024.csv",
+      "bytes": 7201469,
+      "sha256": "3209a5dff20c1d11dead1eed99c761aef73fc46bf3e37da0b32180e4b4500f47"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72201012836_2024.csv",
+      "bytes": 7950451,
+      "sha256": "7906f673d6774650db128b3a50df9089f312c44fc7927757bf6af3167944960a"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72202012839_2024.csv",
+      "bytes": 7869256,
+      "sha256": "92574e7f77dd6717446438a7e5d61faf83b9ee03aad9012e67b2942be27de955"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72203012844_2024.csv",
+      "bytes": 7714124,
+      "sha256": "ffe5aa0b5c4f1f4c9d07c0360f8ac855ee9a0cf78438bb9222af4c66ff1ff1ae"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72205012815_2024.csv",
+      "bytes": 7791574,
+      "sha256": "23eb91e7fa7ce463090b9821d1e4b19b6f49e521cef33903a096d5ed0a6d47e8"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72206013889_2024.csv",
+      "bytes": 8163309,
+      "sha256": "04d592313b552db2864abc560d08871a97bf72b662edd119e818e9ff8982dc0b"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72207003822_2024.csv",
+      "bytes": 4669440,
+      "sha256": "ffad11cac398e48963983cd2ba686e5b5603ca5b520998af6bfa1d356a13a6ca"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72208013880_2024.csv",
+      "bytes": 7564589,
+      "sha256": "212bd8eab9faccd1598d2b7fbf60b5d80ce0f9d8075699131cafb7bb26ce6ed9"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72210812894_2024.csv",
+      "bytes": 6260103,
+      "sha256": "35c5b8bc4bba58bd8ec5fa32c7701b158ca1be150ad47dbcaf1c167851e6dca1"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72211012842_2024.csv",
+      "bytes": 7740883,
+      "sha256": "57b13b93701bb415acd6ec2f0ce55137af3df611fd059e8e5edad801d266c95c"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72211512871_2024.csv",
+      "bytes": 6260657,
+      "sha256": "dfd86d0a5ba6c48fc755bcafdc490c2278761006c8eac7e6e230e3d307ae213d"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72214093805_2024.csv",
+      "bytes": 8012871,
+      "sha256": "e3bf4189b756e01fac6e050df327bbf0c6b3552a71e3963bb87ce946734ead19"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72216013869_2024.csv",
+      "bytes": 6484898,
+      "sha256": "dccd06301a87adbe9ac7953227fd84a04a475da4804b8647070aa2cd0fb6d9e3"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72216693845_2024.csv",
+      "bytes": 6684897,
+      "sha256": "b0df405f71f2fd55324a781494d8d596226745833d4fa0bf13f287bd1ad03096"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72218003820_2024.csv",
+      "bytes": 7992030,
+      "sha256": "030caf79309e7b9e1e1a22845f27d7bd51387273d63c4fcaaa8ce6b9bab37476"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72219013874_2024.csv",
+      "bytes": 8371968,
+      "sha256": "cc2d1ce4b1209a7d8718173828cbd30781070d2efe01f332e76af02b6090f7ae"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72221013858_2024.csv",
+      "bytes": 7797875,
+      "sha256": "723328efd511ec9bc037e62d74ce3e03f7a36640786ec65aa765195695f39281"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72222313899_2024.csv",
+      "bytes": 6974755,
+      "sha256": "4bde6d94dab0376e3041db267d9434da662c2c1c11ff75a2d430568ddb2738a8"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72223013894_2024.csv",
+      "bytes": 8233760,
+      "sha256": "40936af30bee825003f96fc3d9cf5f4b2acf904339d1f984661c3476ebcafa8c"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72225593842_2024.csv",
+      "bytes": 6542001,
+      "sha256": "f8c1469b497a0b6dd0ad702b8b836e85d4b6223982b70074d64724f7bed03798"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72226013895_2024.csv",
+      "bytes": 7667663,
+      "sha256": "4345b53d087fb9c5a2498873cdcf2c8d3ea4d8db109d71f1314e4c177a75c1ba"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72226813839_2024.csv",
+      "bytes": 6643035,
+      "sha256": "33aaef7306ea098ac10822372c6bf66d6af86cb75b2a480f27de4bcd9cdd879b"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72228013876_2024.csv",
+      "bytes": 6584225,
+      "sha256": "26f647772b5ec30e7eaba140e71829f85c774737e6792f447cdf6c5b9b2982ca"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72231012916_2024.csv",
+      "bytes": 8348341,
+      "sha256": "78256f2f4d135bf8e7c59a010e579b1400bdaab8d21078170aa23670d2d4f58a"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72232013970_2024.csv",
+      "bytes": 6504309,
+      "sha256": "de2cc32042a6ce014b7436f27a99b9e11c7fa02febffbfcb8f7495480eefe65b"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72235003940_2024.csv",
+      "bytes": 8246727,
+      "sha256": "38cc9a5f2e546cbc9991cddf11667f128094da94e9ec16147416458be89c9f48"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72240513976_2024.csv",
+      "bytes": 7274184,
+      "sha256": "490ec3592ca460fc2f1724ffcd0d28eba69e103eb316b8759ea5ea3db4714cae"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72243012960_2024.csv",
+      "bytes": 8076088,
+      "sha256": "f9723e81e305a58bc0567d1c921afe3e25f97aa0dfbcda96606c24dd01f8663a"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72248013957_2024.csv",
+      "bytes": 8467517,
+      "sha256": "a19dd13cad55a6081c8f69f49f3bae7fd520c8b969405dd8db5c39ef57467ab8"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72248613942_2024.csv",
+      "bytes": 6792643,
+      "sha256": "eff11a19f423582d401f66585bbab163fbe8ac3737fea7fb022ea7fd4cab6bfb"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72250612959_2024.csv",
+      "bytes": 6963488,
+      "sha256": "492fd37922014ef69db3809dfc5fb77b8e325992d4d40c70f8ac483a8d6e36cd"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72253012921_2024.csv",
+      "bytes": 7972837,
+      "sha256": "9c6a6180ed3f4696088266e148bb67150a7bb68f0f81ddb66cfd0895e225e3d4"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72254013904_2024.csv",
+      "bytes": 8200268,
+      "sha256": "5a9451323720bc6cbc29b8e166ab745f621bdbe7580cb3117a439aa4e6127879"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72259003927_2024.csv",
+      "bytes": 7808227,
+      "sha256": "acec0cb05e221539870d6821817424efb5b4e49f9776466aa30cb98cd2618cc7"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72267023042_2024.csv",
+      "bytes": 7554053,
+      "sha256": "6d24f058948ce2b5d2e2cf3a4d258234779d7eccc910bc3d1c04192d634e486b"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72270023044_2024.csv",
+      "bytes": 7096832,
+      "sha256": "3c71b360fa57af22f47c98732829982c36d05e3e01a39247b6d9a71befd97f7f"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72274023160_2024.csv",
+      "bytes": 6462725,
+      "sha256": "a1a530f9ea5f6a877763688cf81b018d67669cd9fd56b86c93ad5149d3a54ef7"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72278023183_2024.csv",
+      "bytes": 6792888,
+      "sha256": "731fe6f8cbd06aee799bf88dc2f4b89e6396b297ada7c13b500900901701ad05"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72286893138_2024.csv",
+      "bytes": 4789500,
+      "sha256": "a36d51a3fc43347adbfab58cf70dc2ade67fb7cb502107671f7482788b8a9dcd"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72288023152_2024.csv",
+      "bytes": 5693478,
+      "sha256": "f533e773cf582b8c1ca5a00b10b77c2658c8aedcabc97ca1655417afe946aa27"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72290023188_2024.csv",
+      "bytes": 7893955,
+      "sha256": "571383c726e729aef8de578cc27ce25f02eec7f908bc4f2d589c8dae13965117"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72295023174_2024.csv",
+      "bytes": 8164095,
+      "sha256": "509265f8e35d389fb02f66604cc5df20be3ca10868a27cb5202fbdd2b24b28b4"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72297793184_2024.csv",
+      "bytes": 6275713,
+      "sha256": "d90d8db2b9a27634b13f5812f500449a4fa3440d3617f85f2305fc997dcfd2ca"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72302013748_2024.csv",
+      "bytes": 8293242,
+      "sha256": "4ec1c2c14473f75af878bee854edd100f5cdc286d4a268066f6b33837ae865f3"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72303593740_2024.csv",
+      "bytes": 6677776,
+      "sha256": "2b8daebd8e88a6dcbda2b2bb9b45a10cad9f0533c69a345ec78e35c67d44b32c"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72306013722_2024.csv",
+      "bytes": 7870425,
+      "sha256": "298a4ede3e93dc691684cd8f6e093e5ab8fb2e482a824080e745b4e2631938c1"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72306993753_2024.csv",
+      "bytes": 6125103,
+      "sha256": "dd7041635a1789d1a3e3ef760389ac64109b8251285c6d4034c178869e0234cc"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72308013737_2024.csv",
+      "bytes": 7832162,
+      "sha256": "b053489f11c3ad9d68901a909382650a178178a6f3dd674c13c0948be7cc2fd9"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72310013883_2024.csv",
+      "bytes": 7840410,
+      "sha256": "53527339a3f033fd764daab8cd5a8de7ed36dfe9b6f57af35ad4c8418c0d7d90"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72312003870_2024.csv",
+      "bytes": 7882971,
+      "sha256": "a4f5cc8aed1363d077362640190c12046d5e6973d29ce4eccdb5f494e243a999"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72314013881_2024.csv",
+      "bytes": 8133162,
+      "sha256": "2b3b6890dd4493bf2f8b50056bd215a2683456a5d1e7225c4a405d16cc3ff6d9"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72315003812_2024.csv",
+      "bytes": 8703677,
+      "sha256": "eeb3644a02934f0b5446d2af7ed384a723a1e56619d45cfe4cf9759ab88c1fde"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72317013723_2024.csv",
+      "bytes": 8279920,
+      "sha256": "ed28b13456f2ed413ee1ed9a713e5dab03633d88a1d11bed17f600ef7714d148"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72323003856_2024.csv",
+      "bytes": 8079303,
+      "sha256": "7eb413e6dca7149713985efd18c47e57b72d5ecb6e292430d2ced665dcff9f35"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72324013882_2024.csv",
+      "bytes": 7962337,
+      "sha256": "f87a18815a1882e41f604bc360d48c1a04c3f22f395af2d1f3870e06d52667eb"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72326013891_2024.csv",
+      "bytes": 8033296,
+      "sha256": "319bc86dc68a8a7b94847365fbdf13e6e91dbc5076a8c793c724f0364afab8d7"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72327013897_2024.csv",
+      "bytes": 7872915,
+      "sha256": "aeaf14bd455841f667076995f5d5dafe36e28b5270cb46a8ad4f6990523a34e9"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72330753893_2024.csv",
+      "bytes": 5651789,
+      "sha256": "21d4ee20cfcd72bb9de069c33c3d1ca144583376bd9d280dc3b87844550fb16a"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72334013893_2024.csv",
+      "bytes": 8134152,
+      "sha256": "e2251414ba64896bf4019e998bed6910bae0faf193034f88a37304439fd3e422"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72335013877_2024.csv",
+      "bytes": 6315498,
+      "sha256": "46f9991e93ce05f3f8bbc415d5ded4811a26a115508c3cbef4f52e56362f9b51"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72340313963_2024.csv",
+      "bytes": 6316596,
+      "sha256": "7d6437e258dc91582e553a1ee835f4a1c1a1c274121edb56b7a0c559b1624465"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72343653922_2024.csv",
+      "bytes": 6357427,
+      "sha256": "0b7b5d66aafc313cdd9dea66889399ab9ce08c1d43542078b076220f8c153bde"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72353013967_2024.csv",
+      "bytes": 7969989,
+      "sha256": "d1ccd8b3a8afebe88011f374b521a591d301477c3363eb677f034e146092138b"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72356013968_2024.csv",
+      "bytes": 7671935,
+      "sha256": "7cc91d59aed2ae13941067db6628bc89f3158ce239c694db9ec614056d0ded0d"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72363023047_2024.csv",
+      "bytes": 7277030,
+      "sha256": "de0fe8b904396ab2cc633777258e395b55d02f5d688512c64b21b26125574eed"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72365023050_2024.csv",
+      "bytes": 7508970,
+      "sha256": "8aa887f8f213af6732f8af82e6ba27cf49207e22d6b228a92171642f02dea099"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72384023155_2024.csv",
+      "bytes": 6775284,
+      "sha256": "fd6dacd3cb33a3d0660f0d8c5ff05e2ea75c358b5b54abb39d7b9e4e33aaa18f"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72386023169_2024.csv",
+      "bytes": 6892139,
+      "sha256": "de9736755b2826fba88f76fe0c8f93ea1eaae1612fbe254d52d63ee652048132"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72389093193_2024.csv",
+      "bytes": 7415500,
+      "sha256": "25b2d678c0244ad8579ffe5d3b396c214d5049fd639f6d92a4b43659ca390fae"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72392523190_2024.csv",
+      "bytes": 6238692,
+      "sha256": "c8de5d50cebcc2d7960bcefdac5db445c0231af0c7603625121303b679551689"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72399014711_2024.csv",
+      "bytes": 6881107,
+      "sha256": "44bffd0750f1aafb4c45e36bafa62c7e70e6ddb84fa333073fb36ce13f8809bd"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72401013740_2024.csv",
+      "bytes": 7877990,
+      "sha256": "15b11747fa55b8eaf5b192519b3aada8ff42de1dc9633dff7f774f2be01bc801"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72401693736_2024.csv",
+      "bytes": 6637938,
+      "sha256": "97f753e0fb429acdeeb94fba19faee5359ae926351c26f13f2cb43569dd82853"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72403093738_2024.csv",
+      "bytes": 7990751,
+      "sha256": "bdd6b293bc87e30cf85c872e7d4441858709105f95e4380c7354e581f9a84722"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72405013743_2024.csv",
+      "bytes": 8601276,
+      "sha256": "4d6ebc0a1e20ad4a438acba3e25fb323512a190a41a6a17b8bc79c4d458579b0"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72406093721_2024.csv",
+      "bytes": 8363300,
+      "sha256": "e5b0eafa0210a99095a354b323302e052aa1cb8bb569c7fd8d1d401005c4a8f7"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72408013739_2024.csv",
+      "bytes": 8466923,
+      "sha256": "fb203b0aa97b91bfaff29d796f9298c0a8c355c7aecb7bd78ce38dcf169a75c5"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72411013741_2024.csv",
+      "bytes": 7661765,
+      "sha256": "8fce7ae569b59b93c0e484d2d7a50169c4a3dd7177112ef6131061b2143665ec"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72414013866_2024.csv",
+      "bytes": 7982168,
+      "sha256": "c6b9e777499379cb3503d284ba5207522f2db3caaea9abfdf84ec2732a5bae46"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72421093814_2024.csv",
+      "bytes": 8597587,
+      "sha256": "69af3f21ee0ac427788980994631683218b60eef63ea519f6b71db1f5f3d231c"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72422093820_2024.csv",
+      "bytes": 8306265,
+      "sha256": "8eb9d991e156bbfde0e3c0f5153b7d93e7b6643ee17501b1b6ee800237c19847"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72423093821_2024.csv",
+      "bytes": 8340343,
+      "sha256": "33c41f484e4a057d6799d82db221797affbd664cc7b4e41384d07621aaf5700c"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72428014821_2024.csv",
+      "bytes": 8077551,
+      "sha256": "bdd05012c71880ce716e14fcb8f1fbdd3a50054f18ee6dc25aff531f95709f00"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72429093815_2024.csv",
+      "bytes": 8528915,
+      "sha256": "c79bc4454e969ca206230b78b5421b57facaf9540ad5d7f8f886ef23a87dec63"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72432093817_2024.csv",
+      "bytes": 7918527,
+      "sha256": "4c817c43ab3a389dea57337dd06952582bc1d4d898ee38d2d062e1e41dc9b326"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72434013994_2024.csv",
+      "bytes": 8329329,
+      "sha256": "b409495a2088b00a78248f2897938e5388b1ded76086771e93af3e33ff53e228"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72438093819_2024.csv",
+      "bytes": 8468671,
+      "sha256": "60ab719a95ba30f6c8e03c400349aaa5d83dcda9bdb2a1dfa22ee38291a624a6"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72439754831_2024.csv",
+      "bytes": 5432614,
+      "sha256": "5450b90b2823142bf248e5a7428f93e9f52088173da7cb7f64a53b18e73bb8dc"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72440013995_2024.csv",
+      "bytes": 7880430,
+      "sha256": "cf93a2c21d38c254bb5c237ce4da5245b54a7ba1a143c2f91b5200f9fe3d1078"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72446003947_2024.csv",
+      "bytes": 7859505,
+      "sha256": "82ef8adca58316047cfcf941920352f16e2cc8df0c37c7bf90831facc47a931f"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72450003928_2024.csv",
+      "bytes": 8120085,
+      "sha256": "8992f7158b3fdaecc46e10845b4996dcc040aee4e1ec1feff02d79c3d6c3c49e"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72467523063_2024.csv",
+      "bytes": 4841464,
+      "sha256": "557909d7277aa008cb129bd0d2d0fe2fb061be7e1552e2d27faab1c8993d33eb"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72476593013_2024.csv",
+      "bytes": 5713056,
+      "sha256": "fce1838b81dde2827c5692e8784cf9f5e624fac7023780d9c234124e32708981"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72483993225_2024.csv",
+      "bytes": 5454164,
+      "sha256": "9bbd4eec839793a97ca2495e77a40ddd96839abe9ecc80cd503fc087972e051b"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72488023185_2024.csv",
+      "bytes": 6818329,
+      "sha256": "422ad1ea17a9457a2d8c4c91360c5b80973dbda7a9249b406679bbc65ddef074"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72494023234_2024.csv",
+      "bytes": 7505017,
+      "sha256": "d88a869e9a37e80c94a70d8dc038038f75d58146b2c752a2a3fb6c8f36bf0dcd"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72494523293_2024.csv",
+      "bytes": 5411697,
+      "sha256": "c7dcbeb1d5cb03e72072dc37fe213678644a2b19bcfa7dcd7f28c004d913de28"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72502014734_2024.csv",
+      "bytes": 8016587,
+      "sha256": "989102e9f3dc0ae4264343985b2e834361662d9cc8082605045af187dd80ff08"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72503014732_2024.csv",
+      "bytes": 7965128,
+      "sha256": "ea2d3858502e476ddea25f9165dfd378b64f3d0bc4f5090be872cd9730b54150"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72503794745_2024.csv",
+      "bytes": 6110772,
+      "sha256": "c53cb2ff2e6ea729883780af9b52cd51f08e4800af8eb7c281c6a4de574ab59d"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72507014765_2024.csv",
+      "bytes": 8544755,
+      "sha256": "19d2318bafe39e749db76a661b3ab1d750fc224bd72f18b3cd32d325343e8307"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72508014740_2024.csv",
+      "bytes": 8515544,
+      "sha256": "c9cccceafc5c651d356a6afb71f96de4ebf8f5c26a82d6960ba12fe0889fef9c"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72509014739_2024.csv",
+      "bytes": 8387857,
+      "sha256": "be1ddf31fabe9aeeeeaca7d10867ce44a46eef73676d8ac52b521fe321dfa586"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72510094746_2024.csv",
+      "bytes": 6931225,
+      "sha256": "3e47080ab832ae0f69984c940109f5f001360766fec1faf3b4a527b8f18825ba"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72513014777_2024.csv",
+      "bytes": 8774554,
+      "sha256": "20dba159dd93e9c34869aeaab089b3baa383eacc0e1843689af3c8a6ead460e7"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72515004725_2024.csv",
+      "bytes": 9326565,
+      "sha256": "1743f10026f40308ab23339c02a38212c436b40bf0282ef836d246643872dcf0"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72515594761_2024.csv",
+      "bytes": 5620555,
+      "sha256": "019b445f98a7bc6ef76ba9c12f0e7766869a8b63fa10b3ece5659d2e3654fc4e"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72517014737_2024.csv",
+      "bytes": 8064307,
+      "sha256": "e405471659cb7a5cb0c41192b9515200f5a626fcc5de4d844d9fbe48f25b06c9"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72518014735_2024.csv",
+      "bytes": 8774357,
+      "sha256": "68e6a3050219659a7453bc822efc53206918ad516ae8b3576798d89fb6f9c304"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72519014771_2024.csv",
+      "bytes": 8874140,
+      "sha256": "f9b9e00b485eada0b40f915ca8a35e835e1005ade9a775d966aa44763aeae4f2"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72520094823_2024.csv",
+      "bytes": 8007948,
+      "sha256": "dd5bc00decec4574e4752d05afad70393adcf2a6862212d74731da884417a4fc"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72524014820_2024.csv",
+      "bytes": 8679735,
+      "sha256": "4b21c0458f829fb73e3251b841f8e46d20c66886aed2427c27c08d68f364072f"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72528014733_2024.csv",
+      "bytes": 9279043,
+      "sha256": "27135aa0776beab7ea65c9505d4570af3ad0d91ae757472c4c53483c67a0df2d"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72529014768_2024.csv",
+      "bytes": 9253914,
+      "sha256": "0871aa01293e52754600221d8fc33ae598db567ed0994b3018eb4ea05c09bed9"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72530094846_2024.csv",
+      "bytes": 8451465,
+      "sha256": "1f21901ce9998830e7078d28fbad99fc626d409d413d7d34c986b66a3df70176"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72533014827_2024.csv",
+      "bytes": 8661545,
+      "sha256": "0aff2c062719365b4d8856097de86650582b23107814aa68b4f4a51cf83470cc"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72535014848_2024.csv",
+      "bytes": 8228780,
+      "sha256": "bc6e12ac98e343a1054a01f87e795f3966a0eb59ad4eefc59b45dba1e2a20d48"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72537094847_2024.csv",
+      "bytes": 8774100,
+      "sha256": "90e5322d52a9948af7b1670c2694628e80ead975e113ed3305c954bc82fe4609"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72539014836_2024.csv",
+      "bytes": 8446340,
+      "sha256": "c40952c31e3d9e4781cb8df6b2e452f5ea41dff15fbfc9154881a7c776d294d5"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72544014923_2024.csv",
+      "bytes": 7867040,
+      "sha256": "ea9d6a4a197f0aff6f54f26d5dd579e3dcbeb2327c68124c7b18be3846022c9f"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72545014990_2024.csv",
+      "bytes": 6764663,
+      "sha256": "9aedc85c60373116bf11f5a8c8176299459c35574076946b4520b6406d6f5f37"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72546014933_2024.csv",
+      "bytes": 8248301,
+      "sha256": "51562f6e0f7e758d097e9a32a514861df4f7ec8f08488f987f070541f0b8fbc1"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72550014942_2024.csv",
+      "bytes": 7668886,
+      "sha256": "883c5fd06613b29c868ed6d46d658bfc6b118979560a3a5bd6662a50aee0e960"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72565003017_2024.csv",
+      "bytes": 8087888,
+      "sha256": "74c90ee0f7d82d7ebe7a1e64daefe945ec3dfa2e8973d8ca73b2ec5cfec5683d"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72572024127_2024.csv",
+      "bytes": 7930355,
+      "sha256": "aae5aab036f40fa8554da0afc4ab5ae0a8285b0603b4fa86ce80432407697b6d"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72577624166_2024.csv",
+      "bytes": 6157407,
+      "sha256": "9521483fd405148f646d621b3140376ce959137ce72293d5671e908c7835383a"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72606014764_2024.csv",
+      "bytes": 7917251,
+      "sha256": "d8457e37938df993ed7d38e04f749a7fc539bb37abf9f1d02adc9a376869bce9"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72607014606_2024.csv",
+      "bytes": 7101309,
+      "sha256": "e19884b8772acbf9e8dc4f25aa542bf3625059618d15f984b2e81614e642d985"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72617014742_2024.csv",
+      "bytes": 8996785,
+      "sha256": "657086435670d9e4d6e3e44c83c83e964c2049da7c349da7172f18cd9eb000b2"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72628494836_2024.csv",
+      "bytes": 6634785,
+      "sha256": "b5dd46b5f38d8f325b3fc53c4ef2a143cf4166f8b778b37d5e8ddc23f991bef0"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72635094860_2024.csv",
+      "bytes": 8840367,
+      "sha256": "ca15002a08b22d08884e73df15fb4b238794ba575f8921dd42eec43ae430ee8c"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72635794815_2024.csv",
+      "bytes": 7110435,
+      "sha256": "d5191711555d0c96d707a6a90d2a782ff3fa06ae5566f26a5b387f3e727228df"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72638714850_2024.csv",
+      "bytes": 6845998,
+      "sha256": "d729c2e6901a040fc0ee2e24435ab114f2b691460fe034b011e52ae9c5129ef6"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72640014839_2024.csv",
+      "bytes": 8120595,
+      "sha256": "8441932645f1f2470f62a737c48ac8c86ab37cc0d822efad3ea2a8f10d59579d"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72641014837_2024.csv",
+      "bytes": 8415042,
+      "sha256": "eac10d679109fa94d9244c2490bda048f9c7dd0edad72577da2f8f4c1b936815"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72644014925_2024.csv",
+      "bytes": 8261845,
+      "sha256": "3c18427621fa11271bd57d5c4acbfa98057e466686c38e63b47408211d6635da"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72645014898_2024.csv",
+      "bytes": 8078344,
+      "sha256": "87dfddcf2eb80022a3d72d6a09c30be3e78c92b6717c122602bd0a34aa2aa6cb"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72645704825_2024.csv",
+      "bytes": 6925779,
+      "sha256": "33330ad31340b0bcc0fec89696372f9c186ac6ac08e896097a3a59d387ea19a1"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72646594890_2024.csv",
+      "bytes": 6661879,
+      "sha256": "ff94c17d3e7ffbd3ac0bc53e01a032cc0793204c3c1768d3ee7f5531c469a921"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72651014944_2024.csv",
+      "bytes": 8180228,
+      "sha256": "5080224759b693e47ab003b5a1e23336c0a471883cca8873176a641bf773184b"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72658014922_2024.csv",
+      "bytes": 8448489,
+      "sha256": "2c39672cdeda60fb9331fbcd199544af44c69e338f4ff45fabb639025aa1e515"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72679724132_2024.csv",
+      "bytes": 6561455,
+      "sha256": "dca734536086f8c87e5f82f1cc2a47a4773ada895d88af64b2996373723d16bd"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72681024131_2024.csv",
+      "bytes": 7212387,
+      "sha256": "1b2a070df0726e00d825918b532b4c61fb16bf9f4bdddc777117697f69847f25"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72693024221_2024.csv",
+      "bytes": 8162521,
+      "sha256": "04c1d7e1c946765e887bd4dea85cd872ef795b89a9c8e346fe8407a685d66528"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72698024229_2024.csv",
+      "bytes": 8047552,
+      "sha256": "7fd664e524cfa3d08711903e9aa26f8ef864e694b1ec375436d400959efc0e09"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72753014914_2024.csv",
+      "bytes": 8056107,
+      "sha256": "f80ff2f5f12761b1882f576ff7e4c9e51333de95421baff568a8505e259c7ecb"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72757014916_2024.csv",
+      "bytes": 6900225,
+      "sha256": "6a7fc75a7810e1bacf663b72667ba007b62db8b640a1645ce74c9b6e70bcaa2c"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72785024157_2024.csv",
+      "bytes": 8372249,
+      "sha256": "78ea8c3639c8e5edf0db871bb7f95636e708a9159ac6b9062c754a52e96fa668"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\72793024233_2024.csv",
+      "bytes": 8118926,
+      "sha256": "b7eb152f6195402a3104b57b4a08a47df3251d215a88adf5152f2e921c9a7898"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\74486094789_2024.csv",
+      "bytes": 7740547,
+      "sha256": "a81deadebf7dcb568346eb554516a0d85be387c91946fde84305489ede2e5dc7"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\74704003102_2024.csv",
+      "bytes": 5767903,
+      "sha256": "902a877f359f7f5ec7b1db1e4866ab8e33ca51ca35f4a542260e3ae0d72bcc45"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\74754093915_2024.csv",
+      "bytes": 7352999,
+      "sha256": "ee3ebbe65f384e165276128ecd4ce2a9f5f1f79b135768e877911f09b2bb34c3"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\74756012816_2024.csv",
+      "bytes": 6842087,
+      "sha256": "b2bb60bb0dea3858cb72b892b4f9203b25448e993df0c2ab0a17f4177f1f5ad6"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\74757093874_2024.csv",
+      "bytes": 6898347,
+      "sha256": "263efbd56ab89c4eb1395b8a90da27bfa68434b3c643fbe7db64b5e5ae66c210"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\74783012849_2024.csv",
+      "bytes": 6572089,
+      "sha256": "90f93e24b527e8ddbe10deef2172f40f3a8b42a66b48bda10616ce5a7197ae62"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\74787012834_2024.csv",
+      "bytes": 6394589,
+      "sha256": "209f61b2bd8f22b414017ccc60f5feee940126a34e29ae9b2f496cb8a683d215"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\74791013717_2024.csv",
+      "bytes": 4984609,
+      "sha256": "41481d2fcacd5cf5974f1ca7010ffe6250463bdb76d3f0162fd13bfa321abad4"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\78526011641_2024.csv",
+      "bytes": 7363773,
+      "sha256": "4e303d86cc0ca0b1d523855fb63e9bb8849e755fccad3ada68369c659eec5c13"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\78543011640_2024.csv",
+      "bytes": 6096714,
+      "sha256": "234eb02e7b2ff71fd1aff658eb7cdadd9d98e00ec7159955ff9f762ed7d881d2"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\78551011624_2024.csv",
+      "bytes": 6086717,
+      "sha256": "f976208f048ece8bfe118587687e7820c080984becd3b5051bf7b0a73ac8b625"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\91165022536_2024.csv",
+      "bytes": 9217832,
+      "sha256": "544af6c497c09a03cadaba3fe744a8ac9f23f8137b7c7d3d25b6409fa589c887"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\91182022521_2024.csv",
+      "bytes": 7337353,
+      "sha256": "a42476a4cff403cf5b38fcc899abb6dde058ee4173386c390a9b6eb0e33f86dc"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\91190022516_2024.csv",
+      "bytes": 6893330,
+      "sha256": "4f25ca056622b5c0ca38ff50075bfe735e9a5d45796ee833cdd2605971f40a7d"
+    },
+    {
+      "path": "C:\\Users\\derek\\Downloads\\FALSIFIER-X-AIR-v0.1\\FALSIFIER-X-AIR\\data\\raw\\noaa\\91197521510_2024.csv",
+      "bytes": 5658567,
+      "sha256": "8116cdbb6a9070596284443ad60d2761ae81111a4be16cb3f512d579792fd3cc"
+    }
+  ],
+  "generated_at_utc": "2026-08-14T16:24:20.131789+00:00"
+}
