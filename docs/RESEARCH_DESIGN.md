@@ -54,7 +54,7 @@ environment evaluation.
 
 ## What remains future work
 
-- Real flight, weather, airport-capacity, resource, and passenger data ingestion.
+- Baseline model comparisons and a calibrated graph/spatio-temporal model.
 - A calibrated graph/spatio-temporal model (for example an ST-GNN) behind the
   existing predictor protocol.
 - Validation-set calibration of adequacy and evidence thresholds.
@@ -62,6 +62,22 @@ environment evaluation.
 - Formal held-out topology/mechanism-strength studies and active/random/exhaustive
   experiment-efficiency baselines.
 - Operationally realistic recovery constraints and outcome metrics.
+
+## Real-data boundary
+
+The data package ingests configurable BTS Reporting Carrier On-Time Performance
+files and NOAA/NCEI Global Hourly ISD station observations. BTS schedule, actual
+times, delay outcomes, cancellations, diversions, tail numbers and airport IDs
+are **observed**. Airport/station matching, timezone-aware operational timestamps,
+weather features, rotation edges and airport-temporal propagation edges are
+**derived** from observed data and documented configuration. They are not causal
+claims.
+
+The existing hidden-mechanism twin, controlled interventions, and counterfactual
+ground truth remain **synthetic**. Real BTS/NOAA records support future prediction
+and graph evaluation; they do not prove a causal disruption mechanism. Weather
+alignment is backward-only to scheduled departure, and splits are chronological;
+delay outcomes and actual-arrival information are not prediction-time features.
 
 ## Evaluation plan
 

@@ -1,0 +1,36 @@
+[dataset]
+schema_version = "1.0"
+start_date = "2024-01-01"
+end_date = "2024-01-31"
+max_flights = 50000
+airports = []
+carriers = []
+
+[paths]
+raw_bts = "data/raw/bts"
+raw_noaa = "data/raw/noaa"
+interim = "data/interim"
+processed = "data/processed"
+metadata = "data/metadata"
+airport_metadata = "data/metadata/airports.csv"
+station_metadata = "data/metadata/noaa_stations.csv"
+master_coordinate = "data/metadata/T_MASTER_CORD_20260814_042905.zip"
+
+[sources]
+bts_prezip_url = "https://transtats.bts.gov/PREZIP"
+noaa_isd_base_url = "https://www.ncei.noaa.gov/data/global-hourly/access"
+airport_metadata_source = "User-supplied authoritative airport metadata with IANA timezones"
+
+[weather]
+station_radius_km = 75.0
+matching_tolerance_minutes = 90
+
+[graph]
+snapshot_minutes = 60
+minimum_rotation_minutes = 20
+maximum_rotation_minutes = 720
+airport_propagation_minutes = 360
+
+[splits]
+train_end = "2024-01-20"
+validation_end = "2024-01-26"
