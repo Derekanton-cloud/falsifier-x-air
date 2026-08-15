@@ -9,3 +9,7 @@ venv/
 dist/
 build/
 data/raw/
+data/interim/
+data/processed/
+data/metadata/*.parquet
+data/metadata/*.json
