@@ -1,0 +1,24 @@
+{
+  "study_period": [
+    "2024-01-01",
+    "2024-01-31"
+  ],
+  "airport_count_prepared": 165,
+  "airport_count_matched": 165,
+  "airport_count_unmatched": 0,
+  "unmatched_airports": [],
+  "station_count": 165,
+  "station_source": "NOAA/NCEI Integrated Surface Database (ISD) station history",
+  "station_source_url": "https://www.ncei.noaa.gov/pub/data/noaa/isd-history.csv",
+  "station_source_file": "data\\raw\\noaa\\isd-history.csv",
+  "station_source_sha256": "1994747ab4af1b97e63adb434b4d0d022f2daee76f0c144ea9ab46be2d906604",
+  "selection_rules": [
+    "Use only station-history records with BEGIN <= configured start date and END >= configured end date.",
+    "Require non-null latitude/longitude in valid geographic bounds; reject the 0,0 placeholder.",
+    "For each airport represented in prepared flights, select the nearest valid station within 75.0 km using haversine distance (Earth radius 6371.0088 km).",
+    "Break equal-distance ties by station_id ascending."
+  ],
+  "availability_score": "omitted: no NOAA observation availability was downloaded or computed",
+  "matches_file": "data\\metadata\\noaa_station_selection.csv",
+  "generated_at_utc": "2026-08-14T15:43:43.023576+00:00"
+}

@@ -1,0 +1,104 @@
+{
+  "prediction_target": "arrival_delay_minutes",
+  "prediction_timestamp": "scheduled_departure_utc",
+  "split_boundaries": {
+    "train": "2024-01-01 through 2024-01-20",
+    "validation": "2024-01-21 through 2024-01-26",
+    "test": "2024-01-27 through 2024-01-31"
+  },
+  "dataset_sizes": {
+    "train": 30507,
+    "validation": 9822,
+    "test": 8309
+  },
+  "features": [
+    "carrier",
+    "origin_airport",
+    "destination_airport",
+    "scheduled_duration_minutes",
+    "distance",
+    "dep_hour",
+    "dep_day_of_week",
+    "origin_weather_temperature_c",
+    "origin_weather_dew_point_c",
+    "origin_weather_pressure_hpa",
+    "origin_weather_visibility_m",
+    "origin_weather_wind_direction_degrees",
+    "origin_weather_wind_speed_mps",
+    "prev_aircraft_delay",
+    "airport_congestion"
+  ],
+  "missing_value_handling": "SimpleImputer(strategy='mean'), fitted on training data only",
+  "categorical_encoding": "OneHotEncoder(handle_unknown='ignore')",
+  "naive_mean_baseline": {
+    "train_mean": 21.00101616022552,
+    "validation": {
+      "MAE": 38.07992897698081,
+      "RMSE": 77.72426868718043,
+      "R2": -0.015786288438123908
+    },
+    "test": {
+      "MAE": 37.74380879847392,
+      "RMSE": 61.72160584443493,
+      "R2": -0.11677456991749269
+    }
+  },
+  "model_results": {
+    "Ridge": {
+      "validation": {
+        "MAE": 39.398462864710154,
+        "RMSE": 79.85998561476153,
+        "R2": -0.07237705387645454
+      },
+      "test": {
+        "MAE": 33.75669116590928,
+        "RMSE": 62.23031885387832,
+        "R2": -0.13525947399767713
+      },
+      "training_time_seconds": 0.363,
+      "input_feature_count": 15,
+      "post_ohe_feature_count": 340
+    },
+    "RandomForest": {
+      "validation": {
+        "MAE": 35.24329337259958,
+        "RMSE": 79.57340745798913,
+        "R2": -0.06469439710335112
+      },
+      "test": {
+        "MAE": 29.15349104469118,
+        "RMSE": 63.946304592526,
+        "R2": -0.1987316895315807
+      },
+      "training_time_seconds": 9.574,
+      "input_feature_count": 15,
+      "post_ohe_feature_count": 340
+    },
+    "GradientBoosting": {
+      "validation": {
+        "MAE": 36.732176966878335,
+        "RMSE": 82.0520039297186,
+        "R2": -0.13205477699955903
+      },
+      "test": {
+        "MAE": 28.40331724127475,
+        "RMSE": 61.09580225226009,
+        "R2": -0.09424312403436219
+      },
+      "training_time_seconds": 45.685,
+      "input_feature_count": 15,
+      "post_ohe_feature_count": 340
+    }
+  },
+  "environment": {
+    "python_version": "3.12.10",
+    "pandas_version": "3.0.5",
+    "numpy_version": "2.5.1",
+    "scikit_learn_version": "1.9.0",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "random_seeds": {
+      "RandomForest": 42,
+      "GradientBoosting": 42
+    }
+  }
+}
