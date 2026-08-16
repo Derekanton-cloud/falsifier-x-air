@@ -81,3 +81,13 @@ Carrier archive through the official TranStats Download page and place its `.zip
 or `.csv` in `data/raw/bts/`. Run `validate-bts` before preparation; it rejects
 empty files, non-ZIP error pages, archives without exactly one CSV, and inputs
 missing the required BTS schema.
+
+## Phase 5 ST-GNN prediction
+
+Run `python -m falsifier_x_air.stgnn --config configs/data.toml` to train the
+flight-level causal ST-GNN. It uses sparse flight-to-flight
+`AIRCRAFT_ROTATION` and `TEMPORAL_AIRPORT_PROPAGATION` messages only, enforcing
+`source_time < target_time` in the model forward pass. It writes a separate
+checkpoint and machine-readable result under `data/processed/`; see
+`data/processed/stgnn_report.md` after training for the concise experiment
+report.

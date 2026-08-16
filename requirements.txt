@@ -4,3 +4,5 @@ scikit-learn>=1.5
 networkx>=3.3
 pytest>=8.0
 timezonefinder>=8.0,<9
+pyarrow>=14.0
+torch>=2.0
