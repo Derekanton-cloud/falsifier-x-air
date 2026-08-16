@@ -36,7 +36,7 @@ def test_ood_gate_prevents_structural_claim():
     detector = StructuralAdequacyDetector()
     prediction = PredictionOutput(np.array([20.0]), np.array([10.0]), np.array([30.0]), np.array([1.0]))
     result = detector.evaluate(np.array([100.0]), prediction, 5.0, 10, 1.0, np.array([20.0]))
-    assert result.state == "ADEQUATE"
+    assert result.state == "OOD"
 
 
 def test_candidate_generation_is_constrained_by_observable_graph():

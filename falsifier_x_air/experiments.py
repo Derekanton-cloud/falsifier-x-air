@@ -14,6 +14,10 @@ class ExperimentConfig:
     maximum_experiments: int = 3
     evidence_tolerance: float = 0.35
     rejection_log_evidence: float = -2.0
+    # A survivor must be better than the rejection boundary and have direct
+    # intervention evidence; calibration fixes this value before final seeds.
+    support_log_evidence: float = -1.75
+    minimum_confirmation_experiments: int = 1
 
 
 class ActiveExperimentSelector:
@@ -26,6 +30,7 @@ class ActiveExperimentSelector:
         residual = observation.delay_vector(snapshot.flight_ids) - prediction_mean
         positive = np.maximum(residual, 0.0)
         total = float(positive.sum())
+        observed_delay = dict(zip(snapshot.flight_ids, observation.delay_vector(snapshot.flight_ids)))
         effects = []
         for evidence in candidates:
             mechanism = mechanism_by_id(evidence.mechanism_id)
@@ -33,8 +38,16 @@ class ActiveExperimentSelector:
                 effects.append(0.0)
                 continue
             if mechanism.identifier in {"AIRCRAFT_ROTATION", "RESOURCE_DEPENDENCY"}:
-                concentration = AviationGraph.residual_concentration(snapshot, residual)
-                effects.append(total * concentration)
+                # The candidate predicts its own paired intervention effect from
+                # *observable predecessor delays* on represented dependency
+                # edges.  The previous residual-concentration proxy discarded
+                # most of this signal and systematically rejected true chains.
+                predecessor_delay = sum(
+                    observed_delay.get(source, 0.0) for source, _, data in snapshot.graph.edges(data=True)
+                    if data.get("relation") == mechanism.relation_type
+                )
+                coefficient = 0.85 if mechanism.identifier == "AIRCRAFT_ROTATION" else 0.60
+                effects.append(coefficient * predecessor_delay)
             else:
                 effects.append(total)
         return np.asarray(effects, dtype=float)
@@ -57,6 +70,25 @@ class ActiveExperimentSelector:
                         if mechanism_by_id(item.mechanism_id).intervention.identifier == intervention)
             return disagreement / cost
         return max(interventions, key=utility)
+
+
+def select_baseline(
+    strategy: str, candidates: tuple[MechanismEvidence, ...], snapshot: GraphSnapshot,
+    observation: NetworkObservation, prediction_mean: np.ndarray, tried: set[str], rng: np.random.Generator,
+) -> str | None:
+    """Transparent benchmark selectors; all return one untried intervention."""
+    selector = ActiveExperimentSelector()
+    interventions = sorted({mechanism_by_id(item.mechanism_id).intervention.identifier for item in candidates} - tried)
+    if not interventions:
+        return None
+    if strategy == "ACTIVE":
+        return selector.select(candidates, snapshot, observation, prediction_mean, tried)
+    if strategy == "RANDOM":
+        return str(rng.choice(interventions))
+    effects = {name: float(np.max(selector.predicted_effects(candidates, snapshot, observation, prediction_mean, name)))
+               for name in interventions}
+    # EXHAUSTIVE has no adaptive preference; a stable order makes its cost auditable.
+    return max(interventions, key=effects.get) if strategy == "MAX_EFFECT" else interventions[0]
 
 
 def run_experiment(twin, scenario, intervention_id: str, experiment_id: str) -> ExperimentResult:

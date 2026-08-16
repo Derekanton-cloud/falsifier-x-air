@@ -7,13 +7,19 @@ from .schema import CounterfactualIntervention, Mechanism, MechanismEvidence
 MECHANISM_REGISTRY = (
     Mechanism("AIRCRAFT_ROTATION", "flight", "AIRCRAFT_ROTATION", "flight",
               CounterfactualIntervention("disable_aircraft_rotation", "Break a scheduled rotation dependency", 1.0),
-              "Delay propagates from one leg to the next leg of an aircraft rotation."),
+              "Delay propagates from one leg to the next leg of an aircraft rotation.",
+              "Removing rotation links reduces downstream delay on the linked aircraft sequence.",
+              "A negligible paired effect rejects rotation as the explanation."),
     Mechanism("AIRPORT_CAPACITY", "airport", "DEPARTS_FROM", "flight",
               CounterfactualIntervention("increase_capacity", "Temporarily increase airport processing capacity", 1.5),
-              "Airport congestion contributes to flight-delay accumulation."),
+              "Airport congestion contributes to flight-delay accumulation.",
+              "Increasing represented airport capacity reduces broad airport-associated delay.",
+              "A negligible paired effect rejects capacity as the explanation."),
     Mechanism("RESOURCE_DEPENDENCY", "resource", "RESOURCE_DEPENDENCY", "flight",
               CounterfactualIntervention("relieve_resource_dependency", "Relieve a represented shared operational resource", 2.0),
-              "A represented shared operational resource propagates disruption."),
+              "A represented shared operational resource propagates disruption.",
+              "Relieving a represented resource reduces delay along its shared-resource sequence.",
+              "A negligible paired effect rejects resource dependency as the explanation."),
 )
 
 

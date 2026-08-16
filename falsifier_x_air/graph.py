@@ -72,6 +72,27 @@ class AviationGraph:
         return float(np.clip(connected / total, 0.0, 1.0))
 
     @staticmethod
+    def directional_residual_lift(
+        snapshot: GraphSnapshot, residuals: np.ndarray, uncertainty_std: np.ndarray,
+    ) -> float:
+        """Downstream positive-residual lift on observable dependency edges.
+
+        This is a descriptive graph diagnostic, not a causal test.  It asks
+        whether scheduled successors on represented rotation/resource edges have
+        systematically larger *positive standardized residuals* than their
+        predecessors.  The calculation contains no twin or mechanism-state
+        information.
+        """
+        residual = dict(zip(snapshot.flight_ids, residuals))
+        scale = dict(zip(snapshot.flight_ids, np.maximum(uncertainty_std, 1e-6)))
+        sources, targets = [], []
+        for source, target, data in snapshot.graph.edges(data=True):
+            if data.get("relation") in {"AIRCRAFT_ROTATION", "RESOURCE_DEPENDENCY"}:
+                sources.append(max(0.0, residual.get(source, 0.0)) / scale.get(source, 1.0))
+                targets.append(max(0.0, residual.get(target, 0.0)) / scale.get(target, 1.0))
+        return float(np.mean(targets) - np.mean(sources)) if targets else 0.0
+
+    @staticmethod
     def relation_types(snapshot: GraphSnapshot, flight_ids: Iterable[str]) -> set[str]:
         node_set = set(flight_ids)
         return {
