@@ -14,6 +14,10 @@ class TwinScenario:
     weather: float
     capacity: float
     seed: int
+    family: str = "STANDARD"
+    noise_scale: float = 1.5
+    mechanism_strength: float = 1.0
+    regime: int = 0
 
 
 class AviationDigitalTwin:
@@ -25,14 +29,14 @@ class AviationDigitalTwin:
 
     def __init__(self, flights: Iterable[Flight], hidden_mechanisms: Iterable[str] | None = None, seed: int = 7) -> None:
         self.flights = tuple(flights)
-        self._hidden_mechanisms = frozenset(hidden_mechanisms or {"AIRCRAFT_ROTATION"})
+        self._hidden_mechanisms = frozenset(hidden_mechanisms or ())
         self.seed = seed
 
     def observe(self, scenario: TwinScenario, interventions: Mapping[str, bool] | None = None) -> NetworkObservation:
         interventions = interventions or {}
         rng = np.random.default_rng(scenario.seed)
         base = 8.0 * scenario.weather + 12.0 * max(0.0, 1.0 - scenario.capacity)
-        delays = {flight.flight_id: max(0.0, base + rng.normal(0.0, 1.5)) for flight in self.flights}
+        delays = {flight.flight_id: max(0.0, base + rng.normal(0.0, scenario.noise_scale)) for flight in self.flights}
 
         if "AIRCRAFT_ROTATION" in self._hidden_mechanisms and not interventions.get("disable_aircraft_rotation", False):
             by_aircraft: dict[str, list[Flight]] = {}
@@ -40,11 +44,11 @@ class AviationDigitalTwin:
                 by_aircraft.setdefault(flight.aircraft_id, []).append(flight)
             for sequence in by_aircraft.values():
                 for previous, following in zip(sequence, sequence[1:]):
-                    delays[following.flight_id] += 0.85 * delays[previous.flight_id]
+                    delays[following.flight_id] += 0.85 * scenario.mechanism_strength * delays[previous.flight_id]
         # These are latent generative components. Their parameters remain an
         # environment implementation detail; observations expose delays only.
         if "AIRPORT_CAPACITY" in self._hidden_mechanisms and not interventions.get("increase_capacity", False):
-            congestion = 6.0 * max(0.0, 1.0 - scenario.capacity)
+            congestion = 20.0 * scenario.mechanism_strength * max(0.0, 1.0 - scenario.capacity)
             delays = {key: value + congestion for key, value in delays.items()}
         if "RESOURCE_DEPENDENCY" in self._hidden_mechanisms and not interventions.get("relieve_resource_dependency", False):
             by_resource: dict[str, list[Flight]] = {}
@@ -53,7 +57,7 @@ class AviationDigitalTwin:
                     by_resource.setdefault(flight.resource_id, []).append(flight)
             for sequence in by_resource.values():
                 for previous, following in zip(sequence, sequence[1:]):
-                    delays[following.flight_id] += 0.6 * delays[previous.flight_id]
+                    delays[following.flight_id] += 0.6 * scenario.mechanism_strength * delays[previous.flight_id]
         return NetworkObservation(self.flights, delays, scenario.weather, scenario.capacity, scenario.scenario_id)
 
     def counterfactual(self, scenario: TwinScenario, intervention_id: str) -> NetworkObservation:
@@ -70,4 +74,28 @@ class AviationDigitalTwin:
     def held_out_scenarios(self, count: int, seed: int) -> tuple[TwinScenario, ...]:
         rng = np.random.default_rng(seed)
         return tuple(TwinScenario(f"held-out-{index}", float(rng.uniform(0.2, 1.0)), float(rng.uniform(0.55, 0.95)),
-                                  int(rng.integers(0, 2**31 - 1))) for index in range(count))
+                                  int(rng.integers(0, 2**31 - 1)), family="HELD_OUT") for index in range(count))
+
+    def _benchmark_truth(self) -> Mapping[str, object]:
+        """Private benchmark-only oracle. Learner modules must never call this."""
+        affected = set()
+        edges = set()
+        ordered = sorted(self.flights, key=lambda item: (item.aircraft_id, item.scheduled_time))
+        if "AIRCRAFT_ROTATION" in self._hidden_mechanisms:
+            by_key: dict[str, list[Flight]] = {}
+            for flight in ordered:
+                by_key.setdefault(flight.aircraft_id, []).append(flight)
+            for sequence in by_key.values():
+                for left, right in zip(sequence, sequence[1:]):
+                    affected.update((left.flight_id, right.flight_id)); edges.add((left.flight_id, right.flight_id))
+        if "RESOURCE_DEPENDENCY" in self._hidden_mechanisms:
+            by_key = {}
+            for flight in sorted(self.flights, key=lambda item: (item.resource_id or "", item.scheduled_time)):
+                if flight.resource_id:
+                    by_key.setdefault(flight.resource_id, []).append(flight)
+            for sequence in by_key.values():
+                for left, right in zip(sequence, sequence[1:]):
+                    affected.update((left.flight_id, right.flight_id)); edges.add((left.flight_id, right.flight_id))
+        if "AIRPORT_CAPACITY" in self._hidden_mechanisms:
+            affected.update(f.flight_id for f in self.flights)
+        return {"mechanisms": self._hidden_mechanisms, "affected_nodes": frozenset(affected), "affected_edges": frozenset(edges)}

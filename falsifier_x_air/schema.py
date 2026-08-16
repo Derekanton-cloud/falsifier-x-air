@@ -62,6 +62,8 @@ class Mechanism:
     target_type: str
     intervention: CounterfactualIntervention
     description: str
+    expected_effect_signature: str = ""
+    falsification_condition: str = ""
 
 
 @dataclass
@@ -100,6 +102,7 @@ class AdequacyEvaluation:
     evidence_score: float
     state: str
     reason: str
+    channels: Mapping[str, float | bool] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)

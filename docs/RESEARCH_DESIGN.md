@@ -52,6 +52,126 @@ does not assume a fixed benefit and does not accept a twin.
 `evaluate_selected_action` is intentionally a separate, post-decision
 environment evaluation.
 
+## Phase 7 model criticism and falsification protocol
+
+Phase 7 keeps the real-data and controlled-twin tracks separate. BTS+NOAA,
+the chronological splits, Phase-5 ST-GNN and Phase-6 CQR are fixed inputs to
+the real-data track. The controlled twin is the only source of known mechanism
+truth, and therefore the only setting in which mechanism recovery is measured.
+No claim of real-world causal recovery follows from twin results.
+
+The learner (`adequacy.py`, `falsifier.py`, `experiments.py`,
+`mechanisms.py`, and `recovery.py`) consumes only observable flights, graph
+relations, outcomes, predictions, uncertainty, candidate semantics, and paired
+intervention outcomes. It does not import the twin or query its private oracle.
+`evaluation.py` is the dedicated benchmark layer permitted to call the private
+benchmark oracle for hidden mechanisms, affected nodes/edges, and scoring.
+An architectural-isolation test enforces that boundary.
+
+Adequacy has five explicit diagnostic channels: prediction/interval violation,
+persistence, graph concentration, residual structure, and OOD feature distance.
+Frozen validation thresholds yield `ADEQUATE`, `OOD`,
+`STRUCTURALLY_SUSPICIOUS`, or `INCONCLUSIVE`. These are evidence categories,
+not causal p-values. A large residual alone cannot trigger candidate generation.
+
+For a structural finding, the loop is sequential: localise high-residual flight
+neighbourhoods; generate only candidates justified by observable relation types;
+select one untried intervention; observe the paired counterfactual; update
+transparent likelihood-shaped (non-Bayesian) evidence; reject/retain; and only
+recover a single survivor after a confirming experiment clears the frozen support
+threshold. Inconclusive is retained as a scientific outcome. The evidence model
+assumes a single dominant mechanism; `MULTIPLE` is intentionally reported as a
+stress test rather than tuned to pass.
+
+Candidate registry entries specify their required observable relation,
+intervention/cost, expected effect signature, and falsification condition.
+`DECOY` supplies a correlated observable resource relation while the true twin
+mechanism is rotation, so paired interventions must discriminate rather than
+correlation alone selecting a cause.
+
+Scenario families are `CORRECT`, `NOISE`, `OOD`, `AIRCRAFT_ROTATION`,
+`RESOURCE_DEPENDENCY`, `AIRPORT_CAPACITY`, `MULTIPLE`, `DECOY`,
+`STRENGTH_SWEEP`, `NONSTATIONARY`, and `UNSEEN_TOPOLOGY`. Exogenous noise is
+paired by seed for each counterfactual. Discovery/calibration seeds are
+100--109; final benchmark discovery seeds are 1000--1009 and never overlap.
+Each final policy is then evaluated only on its paired held-out seed
+`100000 + discovery_seed`, never on the scenario used to generate evidence.
+
+### Phase-7 discovery-partition diagnosis (seeds 100--109 only)
+
+The original final benchmark is not used for calibration. A separate
+`discovery_diagnosis.py` trace records, for each allowed discovery seed, hidden
+label (evaluation only), observable delay/residual vector, adequacy channels,
+localisation, candidate set, every paired intervention effect, candidate evidence
+and decision. The diagnostic rejects any seed outside 100--109.
+
+The diagnosis found an implementation defect in the original rotation/resource
+effect signature. Their true interventions produced measurable paired effects,
+but the learner predicted effect from residual concentration. For discovery seed
+100 this predicted 4.54 against a rotation effect of 17.20, and 3.22 against a
+resource effect of 18.21; the evidence update therefore rejected the correct
+candidate. The minimal correction predicts a represented chain intervention from
+the sum of observable predecessor delays on its observable relation edges times
+the registry coefficient. It uses neither hidden state nor mechanism truth.
+At seed 100 this gives 17.20 for rotation and 12.14 for resource; the latter is
+retained (log evidence -0.95), while incompatible candidates are rejected.
+
+This correction does **not** alter the single-dominant-mechanism evidence model,
+adequacy thresholds, or active selector. On the discovery partition, both
+rotation and resource are structurally suspicious/recovered in 3/10 scenarios;
+the first failure in the other 7/10 is adequacy (`INCONCLUSIVE`) before
+localisation/candidate generation. Thus the remaining limitation is sensitivity
+of the current uncertainty/graph-concentration gate under small noisy networks,
+not intervention non-identifiability in detected cases. Decoy cases have the
+same observable opportunity but only recover the true rotation candidate; no
+resource decoy recovery is introduced. Correct/no-hidden and increased-noise
+controls have zero recovery; OOD is routed to `OOD` when its observable score is
+supplied. Active selection remains unchanged because the small candidate set and
+one mechanism-specific intervention per candidate provide little opportunity for
+a discrimination-efficiency advantage over baselines.
+
+### Adequacy sensitivity refinement (discovery seeds 100--109 only)
+
+The remaining `INCONCLUSIVE` cases were not caused by prediction/uncertainty:
+all chain cases had interval-violation and persistence evidence. They failed
+because scalar residual concentration was below 0.25; notably, that statistic
+was often larger in correctly specified/noise worlds, so lowering its threshold
+would be indefensible.
+
+The minimal added channel is **directional residual lift**: for observable
+`AIRCRAFT_ROTATION` and `RESOURCE_DEPENDENCY` edges, it is the mean positive
+standardized residual of scheduled successors minus that of predecessors. It
+uses only the observable graph, residuals, and interval scale. In discovery,
+chain worlds ranged from 4.43 to 6.58, while correctly specified/noise/OOD
+controls had maximum positive lift 0.69. The threshold 3.0 was selected between
+these separated discovery ranges and is now frozen; it was not selected from
+the final partition. Structural suspicion still requires prediction/uncertainty
+violation and persistence, plus either this directional signal or the original
+concentration evidence. Thus a large residual alone remains insufficient.
+
+Before this refinement, rotation and resource were detected/recovered 3/10 each
+on discovery. After it, both are detected/recovered 10/10; correct and noise
+remain `ADEQUATE` with 0/10 recovery, OOD remains `OOD` 10/10, and the decoy
+family is detected/recovered as the true rotation mechanism 10/10 with no
+resource-decoy recovery. This validates sensitivity within the small controlled
+twin, not a general guarantee. The exact diagnostic trace and summary are
+written to `data/processed/phase7_discovery_diagnosis.{json,md}`.
+
+Evaluation reports detection sensitivity/specificity and false structural
+discoveries; node/edge precision, recall, F1 and top-k where a ranking is
+available; mechanism precision/recall/F1, false recovery, experiments and cost;
+and recovery-policy delay change on held-out seeds. `RANDOM`, `MAX_EFFECT`,
+`ACTIVE`, and `EXHAUSTIVE` are transparent selector baselines. `set_metrics`
+has an independently hand-checked test (prediction `{A,B,C}`, truth `{B,C,D}`
+gives precision=recall=F1=2/3), rather than only duplicate metric code.
+
+Mechanism recovery, model repair, and operational recovery are distinct. The
+current implementation validates only a learned operational intervention policy
+on held-out twin scenarios; it does not refit or alter the locked predictor.
+`python -m falsifier_x_air.evaluation` writes `phase7_results.json` and a concise
+`phase7_report.md` beneath `data/processed/`, including Python/Numpy versions,
+seeds, selector, counts/costs, configurations, and metrics.
+
 ## What remains future work
 
 - Baseline model comparisons and a calibrated graph/spatio-temporal model.
@@ -59,8 +179,8 @@ environment evaluation.
   existing predictor protocol.
 - Validation-set calibration of adequacy and evidence thresholds.
 - Richer resource and connection edges only where reliable operational data exists.
-- Formal held-out topology/mechanism-strength studies and active/random/exhaustive
-  experiment-efficiency baselines.
+- Calibrating the frozen adequacy/evidence thresholds against a larger discovery
+  partition and expanding the benchmark's active-vs-baseline aggregation.
 - Operationally realistic recovery constraints and outcome metrics.
 
 ## Real-data boundary

@@ -29,6 +29,7 @@ class InvestigationResult:
     candidates: tuple[MechanismEvidence, ...]
     experiment_results: tuple[ExperimentResult, ...]
     recovered_mechanism: str | None
+    outcome: str = "INCONCLUSIVE"
 
 
 class FalsifierXAir:
@@ -43,9 +44,10 @@ class FalsifierXAir:
         adequacy = self.detector.evaluate(
             observed, context.prediction, context.ood_score, context.persistence_count,
             AviationGraph.residual_concentration(context.graph, residuals), context.alternative_prediction,
+            AviationGraph.directional_residual_lift(context.graph, residuals, context.prediction.epistemic_std),
         )
         if adequacy.state != "STRUCTURALLY_SUSPICIOUS":
-            return InvestigationResult(adequacy, (), (), (), None)
+            return InvestigationResult(adequacy, (), (), (), None, adequacy.state)
         affected = AviationGraph.localize(context.graph, residuals)
         candidates = generate_candidates(context.graph, affected)
         tried: set[str] = set()
@@ -74,7 +76,16 @@ class FalsifierXAir:
             results.append(result)
             tried.add(intervention)
         survivors = [item for item in candidates if item.status != item.status.REJECTED]
-        recovered = max(survivors, key=lambda item: item.log_evidence).mechanism_id if len(survivors) == 1 else None
+        recovered = None
+        if len(survivors) == 1:
+            candidate = survivors[0]
+            if (candidate.observations >= self.experiment_config.minimum_confirmation_experiments
+                    and candidate.log_evidence >= self.experiment_config.support_log_evidence):
+                recovered = candidate.mechanism_id
         if recovered:
             survivors[0].status = survivors[0].status.SUPPORTED
-        return InvestigationResult(adequacy, affected, candidates, tuple(results), recovered)
+        else:
+            for candidate in survivors:
+                candidate.status = candidate.status.INCONCLUSIVE
+        return InvestigationResult(adequacy, affected, candidates, tuple(results), recovered,
+                                   "RECOVERED" if recovered else "INCONCLUSIVE")
