@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "falsifier-x-air"
 version = "0.1.0"
-dependencies = ["numpy>=1.26", "pandas>=2.2", "scikit-learn>=1.5", "networkx>=3.3", "timezonefinder>=8.0,<9"]
+dependencies = ["numpy>=1.26", "pandas>=2.2", "scikit-learn>=1.5", "networkx>=3.3", "timezonefinder>=8.0,<9", "torch>=2.0"]
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
