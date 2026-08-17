@@ -1,12 +1,13 @@
 """Closed-loop adequacy, localization, active falsification and model-repair proposal."""
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 import numpy as np
 
 from .adequacy import StructuralAdequacyDetector
 from .experiments import ActiveExperimentSelector, ExperimentConfig, run_experiment, update_evidence
 from .graph import AviationGraph, GraphSnapshot
+from .identifiability import EPSILON_IDENT, IdentifiabilityResult, check_identifiability
 from .mechanisms import generate_candidates
 from .schema import AdequacyEvaluation, ExperimentResult, MechanismEvidence, NetworkObservation, PredictionOutput
 
@@ -30,6 +31,9 @@ class InvestigationResult:
     experiment_results: tuple[ExperimentResult, ...]
     recovered_mechanism: str | None
     outcome: str = "INCONCLUSIVE"
+    # Phase-9 identifiability fields — default None/() preserves backward compatibility.
+    identifiability_reason: str | None = None
+    probe_experiments: tuple[ExperimentResult, ...] = field(default_factory=tuple)
 
 
 class FalsifierXAir:
@@ -75,17 +79,41 @@ class FalsifierXAir:
             update_evidence(candidates, expected, result, self.experiment_config)
             results.append(result)
             tried.add(intervention)
+
         survivors = [item for item in candidates if item.status != item.status.REJECTED]
         recovered = None
+        ident_result: IdentifiabilityResult | None = None
+
         if len(survivors) == 1:
             candidate = survivors[0]
             if (candidate.observations >= self.experiment_config.minimum_confirmation_experiments
                     and candidate.log_evidence >= self.experiment_config.support_log_evidence):
-                recovered = candidate.mechanism_id
+                # Phase-9: before committing to RECOVERED, verify the sole survivor
+                # is observationally distinguishable from all rejected competitors.
+                # Uses observable intervention responses only — no oracle access.
+                sigma_eff = float(context.prediction.epistemic_std.mean())
+                ident_result = check_identifiability(
+                    candidate, tuple(candidates), results,
+                    twin, context.scenario,
+                    scenario_id_prefix=f"{context.observation.scenario_id}-ident",
+                    sigma_eff=sigma_eff,
+                    epsilon=EPSILON_IDENT,
+                )
+                if ident_result.is_identifiable:
+                    recovered = candidate.mechanism_id
+
         if recovered:
             survivors[0].status = survivors[0].status.SUPPORTED
         else:
             for candidate in survivors:
                 candidate.status = candidate.status.INCONCLUSIVE
-        return InvestigationResult(adequacy, affected, candidates, tuple(results), recovered,
-                                   "RECOVERED" if recovered else "INCONCLUSIVE")
+
+        all_results = tuple(results) + (tuple(ident_result.probe_experiments) if ident_result else ())
+        ident_reason = ident_result.reason if ident_result is not None else None
+
+        return InvestigationResult(
+            adequacy, affected, candidates, all_results, recovered,
+            "RECOVERED" if recovered else "INCONCLUSIVE",
+            identifiability_reason=ident_reason,
+            probe_experiments=tuple(ident_result.probe_experiments) if ident_result else (),
+        )

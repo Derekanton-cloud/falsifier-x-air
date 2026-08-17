@@ -18,6 +18,10 @@ class TwinScenario:
     noise_scale: float = 1.5
     mechanism_strength: float = 1.0
     regime: int = 0
+    # Phase-8 extensions — None/default values reproduce Phase-7 behaviour exactly.
+    transient_after: int | None = None      # mechanism only applies to scheduled_time >= this
+    rotation_coefficient: float = 0.85     # propagation multiplier for AIRCRAFT_ROTATION
+    resource_coefficient: float = 0.60     # propagation multiplier for RESOURCE_DEPENDENCY
 
 
 class AviationDigitalTwin:
@@ -44,7 +48,8 @@ class AviationDigitalTwin:
                 by_aircraft.setdefault(flight.aircraft_id, []).append(flight)
             for sequence in by_aircraft.values():
                 for previous, following in zip(sequence, sequence[1:]):
-                    delays[following.flight_id] += 0.85 * scenario.mechanism_strength * delays[previous.flight_id]
+                    if scenario.transient_after is None or following.scheduled_time >= scenario.transient_after:
+                        delays[following.flight_id] += scenario.rotation_coefficient * scenario.mechanism_strength * delays[previous.flight_id]
         # These are latent generative components. Their parameters remain an
         # environment implementation detail; observations expose delays only.
         if "AIRPORT_CAPACITY" in self._hidden_mechanisms and not interventions.get("increase_capacity", False):
@@ -57,7 +62,8 @@ class AviationDigitalTwin:
                     by_resource.setdefault(flight.resource_id, []).append(flight)
             for sequence in by_resource.values():
                 for previous, following in zip(sequence, sequence[1:]):
-                    delays[following.flight_id] += 0.6 * scenario.mechanism_strength * delays[previous.flight_id]
+                    if scenario.transient_after is None or following.scheduled_time >= scenario.transient_after:
+                        delays[following.flight_id] += scenario.resource_coefficient * scenario.mechanism_strength * delays[previous.flight_id]
         return NetworkObservation(self.flights, delays, scenario.weather, scenario.capacity, scenario.scenario_id)
 
     def counterfactual(self, scenario: TwinScenario, intervention_id: str) -> NetworkObservation:
