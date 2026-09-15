@@ -1,0 +1,629 @@
+{
+  "metadata": {
+    "disc_seeds": [
+      900000,
+      900099
+    ],
+    "blind_seeds": [
+      900100,
+      900399
+    ],
+    "nl_disc_seeds": [
+      900400,
+      900449
+    ],
+    "nl_blind_seeds": [
+      900450,
+      900549
+    ],
+    "noise_sd": 2.0,
+    "nl_tau": 5.0,
+    "nl_coeff": 3.0,
+    "frozen_before_blind": true
+  },
+  "discovery_counts": {
+    "AIRCRAFT_ROTATION": {
+      "seeds": 100,
+      "identified": 25,
+      "correct": 25,
+      "wrong": 0,
+      "inconclusive": 75,
+      "used_for_estimation": 25
+    },
+    "RESOURCE_DEPENDENCY": {
+      "seeds": 100,
+      "identified": 11,
+      "correct": 11,
+      "wrong": 0,
+      "inconclusive": 89,
+      "used_for_estimation": 11
+    },
+    "AIRPORT_CAPACITY": {
+      "seeds": 100,
+      "identified": 100,
+      "correct": 100,
+      "wrong": 0,
+      "inconclusive": 0,
+      "used_for_estimation": 100
+    }
+  },
+  "estimation": {
+    "AIRCRAFT_ROTATION": {
+      "beta_hat": 0.844129346981847,
+      "ols_se": 0.005253065204691838,
+      "n": 25
+    },
+    "RESOURCE_DEPENDENCY": {
+      "beta_hat": 0.6047813912339881,
+      "ols_se": 0.01349962805355375,
+      "n": 11
+    },
+    "AIRPORT_CAPACITY": {
+      "beta_hat": 20.025417283706588,
+      "ols_se": 0.041086438890480144,
+      "n": 100
+    },
+    "GENERIC": {
+      "beta_hat": 10.078011305645402,
+      "ols_se": 0.19148942819138648,
+      "n": 136
+    },
+    "NONLINEAR": {
+      "beta_hat": 0.0,
+      "ols_se": 0.0,
+      "n": 0
+    }
+  },
+  "base_blind": {
+    "AIRCRAFT_ROTATION": {
+      "identification": {
+        "n_total": 300,
+        "n_correct": 86,
+        "n_wrong": 0,
+        "n_inconclusive": 214,
+        "accuracy": 0.2866666666666667,
+        "false_recovery_rate": 0.0,
+        "abstention_rate": 0.7133333333333334
+      },
+      "e2e": {
+        "orig_mae": 7.188668445833867,
+        "e2e_mae": 5.4531703862150085,
+        "n_repaired": 86,
+        "n_abstained": 214,
+        "improvement": {
+          "n": 300,
+          "mean": 1.7354980596188583,
+          "ci95_low": 1.4229798044887472,
+          "ci95_high": 2.0480163147489696,
+          "z": 10.884408001819859,
+          "p_two_sided": 1.3678446694333023e-27
+        }
+      },
+      "conditional": {
+        "n": 86,
+        "orig_mae": 7.433909877370425,
+        "correct_mae": 1.3798468786999887,
+        "wrong_mae": 11.478843334382493,
+        "generic_mae": 6.98991769216999,
+        "oracle_mae": 1.376357271330749,
+        "oracle_gap": 0.0034896073692396085,
+        "correct_minus_wrong": {
+          "n": 86,
+          "mean": -10.098996455682505,
+          "ci95_low": -10.32625216508084,
+          "ci95_high": -9.87174074628417,
+          "z": -87.10026738400917,
+          "p_two_sided": "< 1e-300"
+        },
+        "correct_minus_generic": {
+          "n": 86,
+          "mean": -5.610070813470001,
+          "ci95_low": -5.758426481676778,
+          "ci95_high": -5.461715145263224,
+          "z": -74.1174161210711,
+          "p_two_sided": "< 1e-300"
+        },
+        "correct_minus_residual": {
+          "n": 86,
+          "mean": -5.807959487393028,
+          "ci95_low": -5.947615521319967,
+          "ci95_high": -5.6683034534660885,
+          "z": -81.51169895921316,
+          "p_two_sided": "< 1e-300"
+        },
+        "correct_minus_random": {
+          "n": 86,
+          "mean": -6.754807850729308,
+          "ci95_low": -7.792569564954718,
+          "ci95_high": -5.717046136503898,
+          "z": -12.757671829617847,
+          "p_two_sided": 2.8251927098267706e-37
+        }
+      }
+    },
+    "RESOURCE_DEPENDENCY": {
+      "identification": {
+        "n_total": 300,
+        "n_correct": 38,
+        "n_wrong": 0,
+        "n_inconclusive": 262,
+        "accuracy": 0.12666666666666668,
+        "false_recovery_rate": 0.0,
+        "abstention_rate": 0.8733333333333333
+      },
+      "e2e": {
+        "orig_mae": 3.919914031859842,
+        "e2e_mae": 3.5702879846750566,
+        "n_repaired": 38,
+        "n_abstained": 262,
+        "improvement": {
+          "n": 300,
+          "mean": 0.3496260471847858,
+          "ci95_low": 0.24451831730076712,
+          "ci95_high": 0.45473377706880447,
+          "z": 6.519663713014632,
+          "p_two_sided": 7.046519265803295e-11
+        }
+      },
+      "conditional": {
+        "n": 38,
+        "orig_mae": 4.2225774489135075,
+        "correct_mae": 1.4623718132441461,
+        "wrong_mae": 8.011228358398933,
+        "generic_mae": 5.271929640742925,
+        "oracle_mae": 1.4592285765375932,
+        "oracle_gap": 0.0031432367065530086,
+        "correct_minus_wrong": {
+          "n": 38,
+          "mean": -6.548856545154786,
+          "ci95_low": -6.733437870520978,
+          "ci95_high": -6.364275219788594,
+          "z": -69.53985622889225,
+          "p_two_sided": "< 1e-300"
+        },
+        "correct_minus_generic": {
+          "n": 38,
+          "mean": -3.80955782749878,
+          "ci95_low": -3.998838917858387,
+          "ci95_high": -3.620276737139173,
+          "z": -39.447856770646645,
+          "p_two_sided": "< 1e-300"
+        },
+        "correct_minus_residual": {
+          "n": 38,
+          "mean": -2.310110361036094,
+          "ci95_low": -2.415222838170646,
+          "ci95_high": -2.2049978839015414,
+          "z": -43.07591668527404,
+          "p_two_sided": "< 1e-300"
+        },
+        "correct_minus_random": {
+          "n": 38,
+          "mean": -2.1060031922249065,
+          "ci95_low": -2.831599568339824,
+          "ci95_high": -1.380406816109989,
+          "z": -5.6887911690825135,
+          "p_two_sided": 1.2794181360824013e-08
+        }
+      }
+    },
+    "AIRPORT_CAPACITY": {
+      "identification": {
+        "n_total": 300,
+        "n_correct": 300,
+        "n_wrong": 0,
+        "n_inconclusive": 0,
+        "accuracy": 1.0,
+        "false_recovery_rate": 0.0,
+        "abstention_rate": 0.0
+      },
+      "e2e": {
+        "orig_mae": 8.996128092768359,
+        "e2e_mae": 1.1745562448725384,
+        "n_repaired": 300,
+        "n_abstained": 0,
+        "improvement": {
+          "n": 300,
+          "mean": 7.821571847895821,
+          "ci95_low": 7.761239225178639,
+          "ci95_high": 7.881904470613002,
+          "z": 254.09604508225638,
+          "p_two_sided": "< 1e-300"
+        }
+      },
+      "conditional": {
+        "n": 300,
+        "orig_mae": 8.996128092768359,
+        "correct_mae": 1.1745562448725384,
+        "wrong_mae": 9.364103028837992,
+        "generic_mae": 2.9756102316769444,
+        "oracle_mae": 1.174394062666567,
+        "oracle_gap": 0.00016218220597151242,
+        "correct_minus_wrong": {
+          "n": 300,
+          "mean": -8.189546783965453,
+          "ci95_low": -8.256263618032342,
+          "ci95_high": -8.122829949898563,
+          "z": -240.5916276014999,
+          "p_two_sided": "< 1e-300"
+        },
+        "correct_minus_generic": {
+          "n": 300,
+          "mean": -1.8010539868044058,
+          "ci95_low": -1.8412739854966507,
+          "ci95_high": -1.7608339881121609,
+          "z": -87.76891916750067,
+          "p_two_sided": "< 1e-300"
+        },
+        "correct_minus_residual": {
+          "n": 300,
+          "mean": -3.324124163198627,
+          "ci95_low": -3.3643444983946633,
+          "ci95_high": -3.2839038280025905,
+          "z": -161.98978273337167,
+          "p_two_sided": "< 1e-300"
+        },
+        "correct_minus_random": {
+          "n": 300,
+          "mean": -118.39608189570465,
+          "ci95_low": -128.0451253565642,
+          "ci95_high": -108.7470384348451,
+          "z": -24.049670981055883,
+          "p_two_sided": 8.414198270535249e-128
+        }
+      }
+    }
+  },
+  "heldout_blind": {
+    "AIRCRAFT_ROTATION": {
+      "identification": {
+        "n_total": 100,
+        "n_correct": 100,
+        "n_wrong": 0,
+        "n_inconclusive": 0,
+        "accuracy": 1.0,
+        "false_recovery_rate": 0.0,
+        "abstention_rate": 0.0
+      },
+      "e2e": {
+        "orig_mae": 15.83812620397787,
+        "e2e_mae": 2.5553605793774525,
+        "n_repaired": 100,
+        "n_abstained": 0,
+        "improvement": {
+          "n": 100,
+          "mean": 13.282765624600417,
+          "ci95_low": 12.879697558361894,
+          "ci95_high": 13.68583369083894,
+          "z": 64.59013453278766,
+          "p_two_sided": "< 1e-300"
+        }
+      },
+      "conditional": {
+        "n": 100,
+        "orig_mae": 15.83812620397787,
+        "correct_mae": 2.5553605793774525,
+        "wrong_mae": 14.094898781437445,
+        "generic_mae": 11.014009931685978,
+        "oracle_mae": 1.579861909622808,
+        "oracle_gap": 0.9754986697546444,
+        "correct_minus_wrong": {
+          "n": 100,
+          "mean": -11.539538202059997,
+          "ci95_low": -11.822092815586187,
+          "ci95_high": -11.256983588533808,
+          "z": -80.04645400681547,
+          "p_two_sided": "< 1e-300"
+        },
+        "correct_minus_generic": {
+          "n": 100,
+          "mean": -8.458649352308528,
+          "ci95_low": -8.799867405696078,
+          "ci95_high": -8.117431298920978,
+          "z": -48.587560259288495,
+          "p_two_sided": "< 1e-300"
+        },
+        "correct_minus_residual": {
+          "n": 100,
+          "mean": -12.4913105572695,
+          "ci95_low": -12.894194082478416,
+          "ci95_high": -12.088427032060585,
+          "z": -60.769346871537145,
+          "p_two_sided": "< 1e-300"
+        },
+        "correct_minus_random": {
+          "n": 100,
+          "mean": -9.489108430333264,
+          "ci95_low": -10.826306565054876,
+          "ci95_high": -8.151910295611652,
+          "z": -13.908673696531288,
+          "p_two_sided": 5.611028218323974e-44
+        }
+      }
+    },
+    "RESOURCE_DEPENDENCY": {
+      "identification": {
+        "n_total": 100,
+        "n_correct": 100,
+        "n_wrong": 0,
+        "n_inconclusive": 0,
+        "accuracy": 1.0,
+        "false_recovery_rate": 0.0,
+        "abstention_rate": 0.0
+      },
+      "e2e": {
+        "orig_mae": 9.619009613477628,
+        "e2e_mae": 1.850089492964377,
+        "n_repaired": 100,
+        "n_abstained": 0,
+        "improvement": {
+          "n": 100,
+          "mean": 7.7689201205132505,
+          "ci95_low": 7.461305871655384,
+          "ci95_high": 8.076534369371117,
+          "z": 49.50057902955478,
+          "p_two_sided": "< 1e-300"
+        }
+      },
+      "conditional": {
+        "n": 100,
+        "orig_mae": 9.619009613477628,
+        "correct_mae": 1.850089492964377,
+        "wrong_mae": 11.078822530667782,
+        "generic_mae": 6.628635294029153,
+        "oracle_mae": 1.5798619096228084,
+        "oracle_gap": 0.2702275833415687,
+        "correct_minus_wrong": {
+          "n": 100,
+          "mean": -9.228733037703407,
+          "ci95_low": -9.436804555046034,
+          "ci95_high": -9.020661520360779,
+          "z": -86.93317079104551,
+          "p_two_sided": "< 1e-300"
+        },
+        "correct_minus_generic": {
+          "n": 100,
+          "mean": -4.778545801064777,
+          "ci95_low": -4.916351237840473,
+          "ci95_high": -4.640740364289082,
+          "z": -67.96502365383311,
+          "p_two_sided": "< 1e-300"
+        },
+        "correct_minus_residual": {
+          "n": 100,
+          "mean": -5.745740406650113,
+          "ci95_low": -5.994466597753871,
+          "ci95_high": -5.497014215546355,
+          "z": -45.27730331517971,
+          "p_two_sided": "< 1e-300"
+        },
+        "correct_minus_random": {
+          "n": 100,
+          "mean": -4.6525371521492085,
+          "ci95_low": -5.361477261461835,
+          "ci95_high": -3.943597042836582,
+          "z": -12.862825362009794,
+          "p_two_sided": 7.286383363815653e-38
+        }
+      }
+    },
+    "AIRPORT_CAPACITY": {
+      "identification": {
+        "n_total": 100,
+        "n_correct": 100,
+        "n_wrong": 0,
+        "n_inconclusive": 0,
+        "accuracy": 1.0,
+        "false_recovery_rate": 0.0,
+        "abstention_rate": 0.0
+      },
+      "e2e": {
+        "orig_mae": 12.170227982469983,
+        "e2e_mae": 2.0108933954867196,
+        "n_repaired": 100,
+        "n_abstained": 0,
+        "improvement": {
+          "n": 100,
+          "mean": 10.159334586983267,
+          "ci95_low": 10.001165149286951,
+          "ci95_high": 10.317504024679582,
+          "z": 125.89218296848604,
+          "p_two_sided": "< 1e-300"
+        }
+      },
+      "conditional": {
+        "n": 100,
+        "orig_mae": 12.170227982469983,
+        "correct_mae": 2.0108933954867196,
+        "wrong_mae": 12.674547051946053,
+        "generic_mae": 5.991003477514161,
+        "oracle_mae": 1.5798619096228084,
+        "oracle_gap": 0.43103148586391143,
+        "correct_minus_wrong": {
+          "n": 100,
+          "mean": -10.663653656459335,
+          "ci95_low": -10.811367335487965,
+          "ci95_high": -10.515939977430705,
+          "z": -141.49509581038288,
+          "p_two_sided": "< 1e-300"
+        },
+        "correct_minus_generic": {
+          "n": 100,
+          "mean": -3.9801100820274393,
+          "ci95_low": -4.1043203600881375,
+          "ci95_high": -3.855899803966741,
+          "z": -62.80491343044606,
+          "p_two_sided": "< 1e-300"
+        },
+        "correct_minus_residual": {
+          "n": 100,
+          "mean": -4.075254224268882,
+          "ci95_low": -4.1556908786627496,
+          "ci95_high": -3.9948175698750137,
+          "z": -99.30172183014017,
+          "p_two_sided": "< 1e-300"
+        },
+        "correct_minus_random": {
+          "n": 100,
+          "mean": -235.13863222243072,
+          "ci95_low": -267.91931440100336,
+          "ci95_high": -202.35795004385807,
+          "z": -14.059247353223688,
+          "p_two_sided": 6.760134076606174e-45
+        }
+      }
+    }
+  },
+  "coverage_reliability": {
+    "K=1": {
+      "AIRCRAFT_ROTATION": {
+        "coverage": 0.32,
+        "accuracy_among_repaired": 1.0,
+        "false_recovery_rate": 0.0,
+        "conditional_mae": 1.4311152620925816,
+        "e2e_improvement_mean": 1.916499978540702
+      },
+      "RESOURCE_DEPENDENCY": {
+        "coverage": 0.0,
+        "accuracy_among_repaired": 0.0,
+        "false_recovery_rate": 0.0,
+        "conditional_mae": null,
+        "e2e_improvement_mean": 0.0
+      },
+      "AIRPORT_CAPACITY": {
+        "coverage": 0.0,
+        "accuracy_among_repaired": 0.0,
+        "false_recovery_rate": 0.0,
+        "conditional_mae": null,
+        "e2e_improvement_mean": 0.0
+      }
+    },
+    "K=2": {
+      "AIRCRAFT_ROTATION": {
+        "coverage": 0.32,
+        "accuracy_among_repaired": 1.0,
+        "false_recovery_rate": 0.0,
+        "conditional_mae": 1.4311152620925816,
+        "e2e_improvement_mean": 1.916499978540702
+      },
+      "RESOURCE_DEPENDENCY": {
+        "coverage": 0.0,
+        "accuracy_among_repaired": 0.0,
+        "false_recovery_rate": 0.0,
+        "conditional_mae": null,
+        "e2e_improvement_mean": 0.0
+      },
+      "AIRPORT_CAPACITY": {
+        "coverage": 1.0,
+        "accuracy_among_repaired": 1.0,
+        "false_recovery_rate": 0.0,
+        "conditional_mae": 1.1975745388428762,
+        "e2e_improvement_mean": 7.801705255391218
+      }
+    },
+    "K=3": {
+      "AIRCRAFT_ROTATION": {
+        "coverage": 0.32,
+        "accuracy_among_repaired": 1.0,
+        "false_recovery_rate": 0.0,
+        "conditional_mae": 1.4311152620925816,
+        "e2e_improvement_mean": 1.916499978540702
+      },
+      "RESOURCE_DEPENDENCY": {
+        "coverage": 0.17,
+        "accuracy_among_repaired": 1.0,
+        "false_recovery_rate": 0.0,
+        "conditional_mae": 1.4652305578382616,
+        "e2e_improvement_mean": 0.482007611847704
+      },
+      "AIRPORT_CAPACITY": {
+        "coverage": 1.0,
+        "accuracy_among_repaired": 1.0,
+        "false_recovery_rate": 0.0,
+        "conditional_mae": 1.1975745388428762,
+        "e2e_improvement_mean": 7.801705255391218
+      }
+    }
+  },
+  "nonlinear": {
+    "disc_n": 50,
+    "nl_beta_hat": 2.995329353676934,
+    "nl_ols_se": 0.003220711888959746,
+    "linear_beta_hat": 2.4280736496492454,
+    "true_nl_coeff": 3.0,
+    "tau": 5.0,
+    "orig_mae": 25.82069100270363,
+    "linear_mae": 3.6130705114837114,
+    "nl_mae": 1.204461610985039,
+    "generic_mae": 28.11404769194593,
+    "oracle_mae": 1.2035184959040794,
+    "nl_minus_linear": {
+      "n": 100,
+      "mean": -2.408608900498673,
+      "ci95_low": -2.4818597538899207,
+      "ci95_high": -2.3353580471074253,
+      "z": -64.44803338689094,
+      "p_two_sided": "< 1e-300"
+    },
+    "nl_minus_generic": {
+      "n": 100,
+      "mean": -26.909586080960885,
+      "ci95_low": -27.232338395418854,
+      "ci95_high": -26.586833766502917,
+      "z": -163.41567931824133,
+      "p_two_sided": "< 1e-300"
+    },
+    "nl_minus_oracle": {
+      "n": 100,
+      "mean": 0.0009431150809598554,
+      "ci95_low": -0.0038461745300230723,
+      "ci95_high": 0.005732404691942783,
+      "z": 0.3859665438569999,
+      "p_two_sided": 0.6995214467148672
+    }
+  },
+  "ablations": {
+    "AIRCRAFT_ROTATION": {
+      "PASSIVE": {
+        "mean_mae": 7.160171058527371,
+        "coverage": 0.0
+      },
+      "RANDOM": {
+        "mean_mae": 5.274504864655337,
+        "coverage": 0.31666666666666665
+      },
+      "ACTIVE": {
+        "mean_mae": 5.274504864655337,
+        "coverage": 0.31666666666666665
+      }
+    },
+    "RESOURCE_DEPENDENCY": {
+      "PASSIVE": {
+        "mean_mae": 3.976119406868606,
+        "coverage": 0.0
+      },
+      "RANDOM": {
+        "mean_mae": 3.498359476132062,
+        "coverage": 0.16666666666666666
+      },
+      "ACTIVE": {
+        "mean_mae": 3.498359476132062,
+        "coverage": 0.16666666666666666
+      }
+    },
+    "AIRPORT_CAPACITY": {
+      "PASSIVE": {
+        "mean_mae": 9.052053817199715,
+        "coverage": 0.0
+      },
+      "RANDOM": {
+        "mean_mae": 1.1873655584206253,
+        "coverage": 1.0
+      },
+      "ACTIVE": {
+        "mean_mae": 1.1873655584206253,
+        "coverage": 1.0
+      }
+    }
+  }
+}

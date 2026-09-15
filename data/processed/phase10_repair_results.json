@@ -1,0 +1,82 @@
+[
+  {
+    "family": "TEST",
+    "seed": 500000,
+    "recovered": "AIRCRAFT_ROTATION",
+    "orig_mae": 1.0,
+    "correct_mae": 0.5,
+    "wrong_mae": 1.0,
+    "generic_mae": 1.0,
+    "oracle_mae": 0.4
+  },
+  {
+    "family": "TEST",
+    "seed": 500000,
+    "recovered": "AIRCRAFT_ROTATION",
+    "orig_mae": 1.0,
+    "correct_mae": 0.5,
+    "wrong_mae": 1.0,
+    "generic_mae": 1.0,
+    "oracle_mae": 0.4
+  },
+  {
+    "family": "TEST",
+    "seed": 500000,
+    "recovered": "AIRCRAFT_ROTATION",
+    "orig_mae": 1.0,
+    "correct_mae": 0.5,
+    "wrong_mae": 1.0,
+    "generic_mae": 1.0,
+    "oracle_mae": 0.4
+  },
+  {
+    "family": "TEST",
+    "seed": 500000,
+    "recovered": "AIRCRAFT_ROTATION",
+    "orig_mae": 1.0,
+    "correct_mae": 0.5,
+    "wrong_mae": 1.0,
+    "generic_mae": 1.0,
+    "oracle_mae": 0.4
+  },
+  {
+    "family": "TEST",
+    "seed": 500000,
+    "recovered": "AIRCRAFT_ROTATION",
+    "orig_mae": 1.0,
+    "correct_mae": 0.5,
+    "wrong_mae": 1.0,
+    "generic_mae": 1.0,
+    "oracle_mae": 0.4
+  },
+  {
+    "family": "TEST",
+    "seed": 500000,
+    "recovered": "AIRCRAFT_ROTATION",
+    "orig_mae": 1.0,
+    "correct_mae": 0.5,
+    "wrong_mae": 1.0,
+    "generic_mae": 1.0,
+    "oracle_mae": 0.4
+  },
+  {
+    "family": "TEST",
+    "seed": 500000,
+    "recovered": "AIRCRAFT_ROTATION",
+    "orig_mae": 1.0,
+    "correct_mae": 0.5,
+    "wrong_mae": 1.0,
+    "generic_mae": 1.0,
+    "oracle_mae": 0.4
+  },
+  {
+    "family": "TEST",
+    "seed": 500000,
+    "recovered": "AIRCRAFT_ROTATION",
+    "orig_mae": 1.0,
+    "correct_mae": 0.5,
+    "wrong_mae": 1.0,
+    "generic_mae": 1.0,
+    "oracle_mae": 0.4
+  }
+]

@@ -417,3 +417,39 @@ implements the following complete decision table:
 This transforms FALSIFIER-X from "mechanism classifier" into a system that
 explicitly reasons about whether its evidence is sufficient to identify a
 mechanism at all — closer to a principled causal decision-support framework.
+
+---
+
+## Phase 10 — Causal Model Repair & Blind Improvement
+
+### Objective
+Answer whether FALSIFIER-X recovered identifiable mechanisms can be converted into an actual predictive model repair that improves accuracy on genuinely unseen scenarios — and does that improvement disappear or reverse when the wrong mechanism is used instead?
+
+### Gating & Isolation
+Repair attempts are gated behind two requirements:
+1. `recovered_mechanism` is not None
+2. `identifiability_reason` is "LEGITIMATELY_IDENTIFIED"
+
+Parameter estimation is restricted exclusively to Phase-7 discovery seeds (100–109). Blind repair evaluation uses a disjoint partition (seeds 500000–500099).
+
+### Methodology
+Four predictors are compared against the Original Predictor (M0):
+- **CORRECT_REPAIR**: R(M0, H*) adds the recovered mechanism's observable predecessor effect, using a frozen coefficient estimated via least squares from discovery-seed interventions.
+- **WRONG_REPAIR**: R(M0, H_wrong) adds a decoy mechanism (e.g., resource dependency instead of rotation) using its own discovery-estimated coefficient.
+- **GENERIC_AUGMENTATION**: R(M0, H_generic) adds a non-causal structural feature (node in-degree) to demonstrate that merely adding graph features does not guarantee improvement.
+- **ORACLE_REPAIR**: R(M0, H*) but parameterized with the true generative coefficient from the unobservable digital twin (evaluator access only).
+
+### Evaluation
+The methodology guarantees that parameter estimates cannot leak from the test partition, and that M0's identical prediction timestamp/information boundary is strictly respected.
+
+---
+
+## Phase 10B — Robust Causal Model Repair & Predictive Specificity
+
+Phase 10 is retained as a historical baseline, but its four-flight topology made aircraft-rotation and resource-dependency edges coincide. Phase 10B is additive and corrects that benchmark limitation with ten flights: AR edges are `(F1,F5)`, `(F2,F6)`, `(F3,F7)`, `(F4,F8)`, `(F6,F9)` and RD edges are `(F4,F5)`, `(F1,F6)`, `(F2,F7)`, `(F3,F8)`, `(F6,F10)`. The sets are disjoint and their observable target supports differ, so AR and RD predecessor features are not identical. Airport capacity remains a separate broad mechanism. `MULTIPLE` is excluded from the primary specificity analysis because mixed mechanisms do not answer the pure-family question; it is not pooled with AR, RD, or AC.
+
+For each intervention, factual and counterfactual observations are computed from the *same* scenario/exogenous seed. Only after their true total-delay difference is formed, the benchmark adds deterministic independent observation noise: `observed_effect = true_effect + ε`, with `ε ~ Normal(0, 2.0²)` minutes generated from `SeedSequence([seed, 10010, mechanism_code])`. This makes discovery coefficient estimation noisy without changing either world or allowing algebraic cancellation. The variance and generator are fixed before blind evaluation.
+
+Discovery uses seeds 700000–700099; blind evaluation uses 700100–700299. A no-intercept least-squares coefficient is estimated only from discovery paired-intervention effect and its relevant observable feature sum, then serialized/frozen before blind cases are constructed. The true coefficient is evaluator-side diagnostic/oracle information only. Repairs require the existing Phase-9 `LEGITIMATELY_IDENTIFIED` gate; inconclusive cases receive no repair.
+
+The predeclared controls are Original M0, Correct Repair (identified family plus frozen estimate), Wrong Repair (a fixed other structural family plus its independently estimated parameter), Generic Repair (fixed schedule-degree feature with fixed 0.10 coefficient), and evaluator-only Oracle Repair (true family/coefficient). For each pure family independently, the primary endpoints are paired `MAE_correct - MAE_wrong` and `MAE_correct - MAE_generic`, with 95% confidence intervals and paired tests. A generic improvement is not interpreted as mechanism-specific evidence. This remains a synthetic, controlled benchmark: it does not establish universal causal discovery, universal identifiability, or real-world causal truth.
