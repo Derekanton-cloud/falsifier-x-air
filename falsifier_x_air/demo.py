@@ -41,13 +41,13 @@ def main() -> None:
         print(f"Experiment {experiment.experiment_id}: {experiment.intervention.identifier}, effect={experiment.effect:.1f}")
     print("Recovered mechanism:", result.recovered_mechanism or "inconclusive")
     predicted_total = float(prediction.mean.sum())
-    unrepaired = choose_recovery(predicted_total, None)
+    action_without_mechanism = choose_recovery(predicted_total, None)
     recovered_evidence = next((item for item in result.candidates if item.mechanism_id == result.recovered_mechanism), None)
-    repaired = choose_recovery(predicted_total, result.recovered_mechanism, recovered_evidence)
-    print(f"Recovery choice (unrepaired): {unrepaired.action.identifier}")
-    print(f"Recovery choice (repaired): {repaired.action.identifier}")
-    print(f"Environment outcome (unrepaired choice): {evaluate_selected_action(twin, scenario, unrepaired).realized_total_delay:.1f}")
-    print(f"Environment outcome (repaired choice): {evaluate_selected_action(twin, scenario, repaired).realized_total_delay:.1f}")
+    action_with_recovered_mechanism = choose_recovery(predicted_total, result.recovered_mechanism, recovered_evidence)
+    print(f"Recovery choice (action without mechanism): {action_without_mechanism.action.identifier}")
+    print(f"Recovery choice (action with recovered mechanism): {action_with_recovered_mechanism.action.identifier}")
+    print(f"Environment outcome (action without mechanism choice): {evaluate_selected_action(twin, scenario, action_without_mechanism).realized_total_delay:.1f}")
+    print(f"Environment outcome (action with recovered mechanism choice): {evaluate_selected_action(twin, scenario, action_with_recovered_mechanism).realized_total_delay:.1f}")
 
 
 if __name__ == "__main__":
